@@ -1,0 +1,24 @@
+project:
+  type: book
+
+book:
+  title: "Data Management"
+  author: "Moses Otieno"
+  date: "08/10/2024"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - data-download.qmd
+    - data-import.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

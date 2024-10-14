@@ -1,0 +1,9 @@
+/.quarto/
+.Rproj.user
+
+
+*.ini
+
+# Ignore config files
+
+*config*
