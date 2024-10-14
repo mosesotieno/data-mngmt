@@ -399,7 +399,7 @@ pip install ssaw</code></pre>
 <section id="modules" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="modules"><span class="header-section-number">2.4.2</span> Modules</h3>
 <p>I use the following modules in data management pipeline especially when working with Survey Solutions:</p>
-<div id="da4495cf" class="cell" data-execution_count="1">
+<div id="de1ab43d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssaw <span class="im">import</span> Client, ExportApi, QuestionnairesApi, models</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> sleep</span>
@@ -499,7 +499,7 @@ pip install ssaw</code></pre>
 <section id="download-script" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="download-script"><span class="header-section-number">2.6</span> Download Script</h2>
 <p>The complete script to download data is given below:</p>
-<div id="0e7f6c7f" class="cell" data-execution_count="2">
+<div id="ec8500f8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Download the trial dataset from the Survey Solutions server</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Moses Otieno</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Date Created: 14 Oct 2024</span></span>
@@ -521,14 +521,14 @@ pip install ssaw</code></pre>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>urls <span class="op">=</span> [config[<span class="st">'susol'</span>][<span class="st">'url'</span>]]</span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>quizid <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'quiz_id'</span>]</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>mal_quiz <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'malquiz_id'</span>]</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>survey_test_id <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'survey_test_id'</span>]</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>mal_id <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'mal_id'</span>]</span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- Specify the questionnaires to download data from </span></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>questionnaires <span class="op">=</span> {</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"surevy_test"</span>: quizid,</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"malaria"</span>: mal_quiz</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"survey_test"</span>: survey_test_id,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"malaria"</span>: mal_id</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>

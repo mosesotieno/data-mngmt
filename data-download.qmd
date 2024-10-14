@@ -275,14 +275,14 @@ config.read('config.ini')
 
 urls = [config['susol']['url']]
 
-quizid = config['susol']['quiz_id']
-mal_quiz = config['susol']['malquiz_id']
+survey_test_id = config['susol']['survey_test_id']
+mal_id = config['susol']['mal_id']
 
 # ---- Specify the questionnaires to download data from 
 
 questionnaires = {
-    "surevy_test": quizid,
-    "malaria": mal_quiz
+    "survey_test": survey_test_id,
+    "malaria": mal_id
 }
 
 
