@@ -169,33 +169,6 @@ To communicate with Survey Solutions server, you first need to instantiate a cli
 
 -   Name of the work space
 
-```{python}
-#| label: Functions
-
-def check_net(url='http://www.google.com/', timeout=5):
-    try:
-        _ = requests.head(url, timeout=timeout)
-        print(f'Connection available on: {url}')
-        return True
-    except requests.ConnectionError:
-        return False
-    
-net_available = check_net()
-```
-
-```{python}
-#| eval: false
-
-if net_available:
-  client = Client(url="None", 
-  api_user="None", 
-  api_password="None", 
-  workspace='primary')
-else:
-  print("Internet not available")
-
-```
-
 **Parameters**
 
 :   -   **url** (**`str`**) -- URL of the headquarters app
@@ -210,18 +183,7 @@ else:
 
 There are two ways to provide these parameters.
 
--   One is to hard-code them in the script as shown below:
-
-    ```{python}
-    #| eval: false
-    if net_available:
-      client = Client(url="90-12-34-26", 
-      api_user='JohnDoes', 
-      api_password='Supersecret', 
-      workspace='primary')
-    else:
-      print("Internet not available")
-    ```
+-   One is to hard-code them in the script.
 
 This method is insecure for handling sensitive data. If you push this script to a public repository, anyone can access these details. Best practices in data management require keeping sensitive information secure and out of reach of unauthorized individuals.
 
@@ -229,81 +191,14 @@ This method is insecure for handling sensitive data. If you push this script to 
 
     A more secure way to handle sensitive data is by using configuration files. Instead of hard-coding credentials directly in the script, you can store them in a separate config file and load them securely. There are several common formats for configuration files such as **.ini** files (Initialization files), **.json** files (JavaScript Object Notation), **.yam**l files (YAML Aint Markup Language), **.properties** files (Java-style-value pair format). I decided to use **.ini** because they are lightweight and easy-to-use configuration files that provide a straightforward way to store settings in a simple key-value format. They allow for comments and enable dividing the configuration into sections.
 
-    ```{python}
-    # Initialize the parser
-    config = configparser.ConfigParser()
+    To prevent sensitive data from being exposed, follow these security practices:
 
-    if not os.path.exists('config.ini'):
-      
-      # Add sections and set values for Survey Solutions
-      config['susol'] = {
-        'url': None,
-        'api_user': None,
-        'api_password': None,
-        'workspace': None,
-        'quiz_id': None
-          
-      }
-      
-      # Add the email address and password
-      config['email'] = {
-        'email_address': None,
-        'pass_word':None
-      }
-      
-      # Add the email address and password
-      config['mysql'] = {
-        'host': None,
-        'database': None,
-        'user': None,
-        'password': None
-      }
-      
-    else:
-      config.read('config.ini')
-
-    # Retrieve the details 
-
-    url_ss = config['susol']['url']
-    apiuser = config['susol']['api_user']
-    passwd = config['susol']['api_password']
-    wkspace = config['susol']['workspace']
-    quizid = config['susol']['quiz_id']
-
-    # Access credentials
-
-    if net_available:
-      try:
-        client = Client(url=url_ss,
-        api_user = apiuser, 
-        api_password=passwd,
-        workspace=wkspace)
-      except:
-        client=None
-    else:
-      client=None
-      print("Internet not available")
-      
-    ```
-
-To prevent sensitive data from being exposed, follow these security practices:
-
+```{=html}
+<!-- -->
+```
 -   **Add Config File to .gitignore:** Ensure the config file is not included in version control (e.g., GitHub) by adding it to .gitignore.
 
 -   **Restrict File Permissions:** Limit who can read the config file by changing its permissions so only authorized users can access it.
-
-```{python}
-if client:
-  try:
-    for q in QuestionnairesApi(client).get_list(questionnaire_id=quizid):
-      print(q.title, q.version)
-  except:
-    print("Unable to connect to server")
-else:
-  print("Unable to connect to the server")
-```
-
-By this time you will get the questionnaire titles and versions. If not, you may need to check that you have keyed in the correct credentials and also got the questionnaire id, work space right.
 
 ### Export Data
 
@@ -332,35 +227,6 @@ Below are steps to access your questionnaire id:
     </div>
 
 Between the ***Details/*** and ***\$*** sign is the id.
-
-**Accessing Questionnaire Id Using API**
-
-```{python}
-if client:
-  for q in QuestionnairesApi(client).get_list():
-      print(q)
-else:
-  print("You did not connect to the server")
-```
-
-```{python}
-if client:
-  try:
-    export_object = models.ExportJob(quizid,export_type='STATA')
-  
-    ExportApi(client).start(export_object, wait=True)
-    
-    ExportApi(client, workspace=wkspace).get(questionnaire_identity=quizid,
-                          export_type='STATA',
-                          show_progress=True,
-                          generate=True,
-                          export_path='data/rawdata')
-  except:
-    print("Unable to connect to the server")
-else:
-  print("You did not connect to server")
-                                                    
-```
 
 ## Summary
 
@@ -467,7 +333,7 @@ def download_all_versions(client, qnrids, qnrversions):
 def main():
     # Connect to the server and check internet connectivity
     server_url = None
-    for attempt in range(1, 11):
+    for attempt in range(1, 2):
         print(f'Attempt {attempt} to connect...')
         server_url = connect_to_server()
         if server_url:
