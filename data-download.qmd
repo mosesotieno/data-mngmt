@@ -254,12 +254,12 @@ The complete script to download data is given below:
 ```{python}
 #| eval: false
 
-# ----- Modules required
-
 # Purpose: Download the trial dataset from the Survey Solutions server
 # Author: Moses Otieno
 # Date Created: 14 Oct 2024
 # Date Modified: 14 Oct 2024
+
+# ----- Modules required
 
 import requests
 from ssaw import Client, ExportApi, QuestionnairesApi
