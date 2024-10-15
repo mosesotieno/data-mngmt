@@ -7,3 +7,7 @@
 # Ignore config files
 
 *config*
+
+nul
+
+data/
