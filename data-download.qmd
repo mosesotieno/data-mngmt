@@ -228,25 +228,6 @@ Below are steps to access your questionnaire id:
 
 Between the ***Details/*** and ***\$*** sign is the id.
 
-## Summary
-
-Below is a summary of the steps you need to undertake in order to download data from Survey Solutions server to your machine.
-
--   **Create API User**: Ensure you have an API user created.
--   **Gather Information**: Collect the following:
-    -   URL
-
-    -   API username
-
-    -   API password
-
-    -   Workspace
-
-    -   Questionnaire ID
--   **Install `ssaw` Module**: Use Python to install the `ssaw` module.
--   **Create .ini Config File**: Store all necessary information for the Survey Solutions Server.
--   **Run the Script**: Execute the script to download the data!
-
 ## Download Script
 
 The complete script to download data is given below:
@@ -343,7 +324,7 @@ def main():
         print("Failed to connect after 10 attempts.")
         return
 
-    # Initialize the Survey Solutions client
+    
 
     # Retrieve necessary configuration details
     api_user = config['susol']['api_user']
@@ -351,9 +332,12 @@ def main():
     wkspace = config['susol']['workspace']
     quizid = config['susol']['quiz_id']
 
+   # Initialize the Survey Solutions client
+   
     client = Client(url=server_url, api_user=api_user, api_password=passwd, workspace=wkspace)
 
     # Process each questionnaire
+    
     for quizname, quizid in questionnaires.items():
         qnr_data = get_questionnaire_versions(client, quizid)
         if qnr_data:
@@ -368,3 +352,46 @@ if __name__ == "__main__":
 
 
 ```
+
+### Customizing Download Script
+
+I\'ve done my best to make things easy for you. However, you need to provide specific details in the script to download your data:
+
+1.  **config.ini**: Create a `config.ini` file with a section called **susol**. Include the required details: `api user`, `api password`, `url`, and `workspace`.
+
+2.  **Questionnaire**: Identify the IDs of the questionnaires you want to download and add them to the config file.
+
+3.  **export_path**: Specify the download directory for the data. The script assumes there\'s a **data** directory in the same path; if not, create one or specify your desired directory.
+
+Once you have this information, you\'ll be able to download your data.
+
+### Error Handling and Debugging
+
+-   If the script fails to connect, check your internet connection and the details in `config.ini`.
+
+-   If you receive an "Invalid Questionnaire ID" error, verify that the IDs in the `questionnaires` dictionary are correct.
+
+-   Monitor the output messages for any errors during the download process.
+
+### Convention: Assigning One Workspace to One Directory
+
+In many data management and programming workflows, particularly when dealing with multiple datasets, scripts, and configurations, establishing a clear and consistent directory structure is essential for maintaining organization and efficiency. I strongly advocate for the convention of assigning one workspace to one directory. A workspace can contain multiple questionnaires, so this script assumes that you will work with each workspace separately.
+
+## Summary
+
+Below is a summary of the steps you need to undertake in order to download data from Survey Solutions server to your machine.
+
+-   **Create API User**: Ensure you have an API user created.
+-   **Gather Information**: Collect the following:
+    -   URL
+
+    -   API username
+
+    -   API password
+
+    -   Workspace
+
+    -   Questionnaire ID
+-   **Install `ssaw` Module**: Use Python to install the `ssaw` module.
+-   **Create .ini Config File**: Store all necessary information for the Survey Solutions Server.
+-   **Run the Script**: Execute the script to download the data!
