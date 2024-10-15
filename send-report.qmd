@@ -1,0 +1,140 @@
+# Send Report
+
+## Introduction
+
+After generating your well-designed reports, the next crucial step is sharing them with stakeholders. I use Python, along with Gmail, to automate the process of sending updated reports, ensuring timely delivery and minimizing manual effort. This allows for a smooth, consistent distribution of reports, saving time and reducing errors.
+
+## Gmail App Password
+
+Google provides a secure way to configure applications with its products by allowing developers to generate **app passwords**. These passwords are specifically designed for use in applications, offering a secure and streamlined way to integrate with Google services, such as Gmail, without using your primary account password. This enhances security and simplifies authentication for app developers. Below are steps
+
+1.  **Enable 2-Step Verification**:
+
+    -   Go to your [Google Account.](https://myaccount.google.com/)
+
+    -   Under "Signing in to Google," select **2-Step Verification** and follow the prompts to set it up.
+
+2.  **Generate an App Password**:
+
+    -   After enabling 2-Step Verification, return to your Google Account.
+
+    -   In the **Security** section, expand 2-Step Verification
+
+    -   You may need to sign in again for security purposes.
+
+    -   In the App passwords section, enter the name of the app; any name (training, python)
+
+    -   Click **Create**
+
+3.  **Use the App Password**:
+
+    -   A 16-character app password will be displayed. Copy this password.
+
+    -   Use this app password in place of your regular Gmail password in the application you are configuring.
+
+4.  **Save Your App Password**:
+
+    -   Keep this password secure, as it grants access to your Google account from the application. You can generate multiple app passwords if needed.
+
+## Sending Updates
+
+Below is a Python script for sending reports via Gmail using an app password. This automates the process of sharing reports with stakeholders:
+
+```{python}
+
+from email.mime.application import MIMEApplication
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import configparser
+import smtplib
+from os.path import basename
+```
+
+```{python}
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+sender = config['email']['email_address']
+app_password = config['email']['pass_word']
+
+to_emails = [config['email']['recipient1'], config['email']['recipient2'],
+config['email']['recipient3']]
+
+
+```
+
+```{python}
+
+def send_mail(send_from: str, subject: str, text: str,
+              send_to: list, filess=None):
+    send_to = sender if not send_to else send_to
+
+    msg = MIMEMultipart()
+    msg['From'] = send_from
+    msg['To'] = ', '.join(send_to)
+    msg['Subject'] = subject
+
+    msg.attach(MIMEText(text))
+
+    for f in filess or []:
+        with open(f, "rb") as fil:
+            ext = f.split('.')[-1:]
+            attachedfile = MIMEApplication(fil.read(), _subtype=ext)
+            attachedfile.add_header(
+                'content-disposition', 'attachment', filename=basename(f))
+        msg.attach(attachedfile)
+    try:
+      server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+      server.login(sender, app_password)
+      server.sendmail(send_from, send_to, msg.as_string())
+      print("Email sent successfully!")
+    except smtplib.SMTPException as e:
+      print(f"Failed to send email: {e}")
+    finally:
+      server.quit()
+      
+
+```
+
+You can write the body of the email in the script as below:
+
+```{python}
+
+#| eval: false
+
+files_tosend = ["./data-import.qmd"]   
+    
+send_mail(
+  send_from = sender,
+  subject = "Test Email",
+  text = "Dear Moses, \nThis is a test email.\n\r Kind regard,, \n Moses",
+  filess = files_tosend,
+  send_to = to_emails)
+```
+
+Another option is to store the email body in a text file, allowing you to easily update the content without modifying the script. This approach keeps your workflow organized and ensures that any changes to the message can be made quickly and cleanly, maintaining a clear separation between code and content. It's a more efficient and scalable way to handle message updates, especially when dealing with frequent changes or multiple stakeholders.
+
+```{python}
+
+#| eval: false
+
+with open('message-body.txt') as f:
+  message_send = f.read()
+  
+  
+send_mail(
+  send_from = sender,
+  subject = "Test Email",
+  text = message_send,
+  filess = files_tosend,
+  send_to = to_emails) 
+```
+
+## Summary
+
+Once reports are generated, the next step is ensuring timely distribution to stakeholders. Automating this process with Python and Gmail enhances efficiency by reducing manual effort. By using a Gmail app password, which offers a secure way to integrate Gmail into applications without compromising your main account password, you ensure smooth, secure, and reliable email distribution.
+
+The script provided sends reports as email attachments. It reads the sender's credentials and recipients' information from a configuration file (`config.ini`). The function `send_mail` handles the email composition and attachments, sending them securely via Gmail's SMTP server. In the event of failure, the script uses a `try-except` block to catch errors and ensures the server connection is closed.
+
+An additional recommendation is to store the email body in a separate text file for easier management, especially when frequently updating the content for various stakeholders. This keeps the script clean and maintainable.
