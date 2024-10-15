@@ -80,23 +80,203 @@
     ]
   },
   {
-    "objectID": "data-download.html#summary",
-    "href": "data-download.html#summary",
+    "objectID": "data-download.html#download-script",
+    "href": "data-download.html#download-script",
     "title": "2  Data Download",
-    "section": "2.5 Summary",
-    "text": "2.5 Summary\nBelow is a summary of the steps you need to undertake in order to download data from Survey Solutions server to your machine.\n\nCreate API User: Ensure you have an API user created.\nGather Information: Collect the following:\n\nURL\nAPI username\nAPI password\nWorkspace\nQuestionnaire ID\n\nInstall ssaw Module: Use Python to install the ssaw module.\nCreate .ini Config File: Store all necessary information for the Survey Solutions Server.\nRun the Script: Execute the script to download the data!",
+    "section": "2.5 Download Script",
+    "text": "2.5 Download Script\nThe complete script to download data is given below:\n\n# Purpose: Download the trial dataset from the Survey Solutions server\n# Author: Moses Otieno\n# Date Created: 14 Oct 2024\n# Date Modified: 14 Oct 2024\n\n# ----- Modules required\n\nimport requests\nfrom ssaw import Client, ExportApi, QuestionnairesApi\nfrom ssaw import models\nfrom time import sleep\nimport configparser\n\n\n# ---- Read and get config values \n\nconfig = configparser.ConfigParser()\nconfig.read('config.ini')\n\nurls = [config['susol']['url']]\n\nsurvey_test_id = config['susol']['survey_test_id']\nmal_id = config['susol']['mal_id']\n\n# ---- Specify the questionnaires to download data from \n\nquestionnaires = {\n    \"survey_test\": survey_test_id,\n    \"malaria\": mal_id\n}\n\n\n# ----- Define functions\n\ndef connect_to_internet(url='http://www.google.com/', timeout=5):\n    \"\"\"Check internet connectivity by pinging the given URL.\"\"\"\n    try:\n        _ = requests.head(url, timeout=timeout)\n        return True\n    except requests.ConnectionError:\n        return False\n\n\ndef connect_to_server():\n    \"\"\"Attempt to connect to the Survey Solutions server via available URLs.\"\"\"\n    for url in urls:\n        if connect_to_internet(url):\n            print(f'Connected to server: {url}')\n            return url\n    print(\"No connection to any server.\")\n    return None\n\n\ndef get_questionnaire_versions(client, questionnaire_id):\n    \"\"\"Retrieve all versions of a questionnaire.\"\"\"\n    return [(q.id, q.version) for q in QuestionnairesApi(client).get_list(questionnaire_id=questionnaire_id)]\n\n\ndef download_questionnaire_data(client, qid, version, export_path='data'):\n    \"\"\"Export and download questionnaire data in STATA format.\"\"\"\n    try:\n        export_object = models.ExportJob(qid, export_type='STATA')\n        ExportApi(client).start(export_object, wait=True)\n        ExportApi(client, workspace=\"susoltest\").get(questionnaire_identity=qid, export_type='STATA', show_progress=True, generate=True, export_path=export_path)\n        print(f'Successfully downloaded version: {version}')\n    except Exception as e:\n        print(f'Failed to download version: {version}. Error: {e}')\n\n\ndef download_all_versions(client, qnrids, qnrversions):\n    \"\"\"Loop through all versions of a questionnaire and download data.\"\"\"\n    for qnrid, version in zip(qnrids, qnrversions):\n        download_questionnaire_data(client, qnrid, version)\n\n\n# ----- Main execution logic\ndef main():\n    # Connect to the server and check internet connectivity\n    server_url = None\n    for attempt in range(1, 2):\n        print(f'Attempt {attempt} to connect...')\n        server_url = connect_to_server()\n        if server_url:\n            break\n        sleep(5)\n    if not server_url:\n        print(\"Failed to connect after 10 attempts.\")\n        return\n\n    \n\n    # Retrieve necessary configuration details\n    api_user = config['susol']['api_user']\n    passwd = config['susol']['api_password']\n    wkspace = config['susol']['workspace']\n    quizid = config['susol']['quiz_id']\n\n   # Initialize the Survey Solutions client\n   \n    client = Client(url=server_url, api_user=api_user, api_password=passwd, workspace=wkspace)\n\n    # Process each questionnaire\n    \n    for quizname, quizid in questionnaires.items():\n        qnr_data = get_questionnaire_versions(client, quizid)\n        if qnr_data:\n            qnrids, qnrversions = zip(*qnr_data)\n            print(f'The highest version of {quizname} is {max(qnrversions)}. Downloading versions from {min(qnrversions)} to {max(qnrversions)}.')\n            download_all_versions(client, qnrids, qnrversions)\n        else:\n            print(f'No versions found for {quizname}.')\n\nif __name__ == \"__main__\":\n    main()\n\n\n2.5.1 Customizing Download Script\nI’ve done my best to make things easy for you. However, you need to provide specific details in the script to download your data:\n\nconfig.ini: Create a config.ini file with a section called susol. Include the required details: api user, api password, url, and workspace.\nQuestionnaire: Identify the IDs of the questionnaires you want to download and add them to the config file.\nexport_path: Specify the download directory for the data. The script assumes there’s a data directory in the same path; if not, create one or specify your desired directory.\n\nOnce you have this information, you’ll be able to download your data.\n\n\n2.5.2 Error Handling and Debugging\n\nIf the script fails to connect, check your internet connection and the details in config.ini.\nIf you receive an “Invalid Questionnaire ID” error, verify that the IDs in the questionnaires dictionary are correct.\nMonitor the output messages for any errors during the download process.\n\n\n\n2.5.3 Convention: Assigning One Workspace to One Directory\nIn many data management and programming workflows, particularly when dealing with multiple datasets, scripts, and configurations, establishing a clear and consistent directory structure is essential for maintaining organization and efficiency. I strongly advocate for the convention of assigning one workspace to one directory. A workspace can contain multiple questionnaires, so this script assumes that you will work with each workspace separately.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data Download</span>"
     ]
   },
   {
-    "objectID": "data-download.html#download-script",
-    "href": "data-download.html#download-script",
+    "objectID": "data-download.html#summary",
+    "href": "data-download.html#summary",
     "title": "2  Data Download",
-    "section": "2.6 Download Script",
-    "text": "2.6 Download Script\nThe complete script to download data is given below:\n\n# Purpose: Download the trial dataset from the Survey Solutions server\n# Author: Moses Otieno\n# Date Created: 14 Oct 2024\n# Date Modified: 14 Oct 2024\n\n# ----- Modules required\n\nimport requests\nfrom ssaw import Client, ExportApi, QuestionnairesApi\nfrom ssaw import models\nfrom time import sleep\nimport configparser\n\n\n# ---- Read and get config values \n\nconfig = configparser.ConfigParser()\nconfig.read('config.ini')\n\nurls = [config['susol']['url']]\n\nsurvey_test_id = config['susol']['survey_test_id']\nmal_id = config['susol']['mal_id']\n\n# ---- Specify the questionnaires to download data from \n\nquestionnaires = {\n    \"survey_test\": survey_test_id,\n    \"malaria\": mal_id\n}\n\n\n# ----- Define functions\n\ndef connect_to_internet(url='http://www.google.com/', timeout=5):\n    \"\"\"Check internet connectivity by pinging the given URL.\"\"\"\n    try:\n        _ = requests.head(url, timeout=timeout)\n        return True\n    except requests.ConnectionError:\n        return False\n\n\ndef connect_to_server():\n    \"\"\"Attempt to connect to the Survey Solutions server via available URLs.\"\"\"\n    for url in urls:\n        if connect_to_internet(url):\n            print(f'Connected to server: {url}')\n            return url\n    print(\"No connection to any server.\")\n    return None\n\n\ndef get_questionnaire_versions(client, questionnaire_id):\n    \"\"\"Retrieve all versions of a questionnaire.\"\"\"\n    return [(q.id, q.version) for q in QuestionnairesApi(client).get_list(questionnaire_id=questionnaire_id)]\n\n\ndef download_questionnaire_data(client, qid, version, export_path='data'):\n    \"\"\"Export and download questionnaire data in STATA format.\"\"\"\n    try:\n        export_object = models.ExportJob(qid, export_type='STATA')\n        ExportApi(client).start(export_object, wait=True)\n        ExportApi(client, workspace=\"susoltest\").get(questionnaire_identity=qid, export_type='STATA', show_progress=True, generate=True, export_path=export_path)\n        print(f'Successfully downloaded version: {version}')\n    except Exception as e:\n        print(f'Failed to download version: {version}. Error: {e}')\n\n\ndef download_all_versions(client, qnrids, qnrversions):\n    \"\"\"Loop through all versions of a questionnaire and download data.\"\"\"\n    for qnrid, version in zip(qnrids, qnrversions):\n        download_questionnaire_data(client, qnrid, version)\n\n\n# ----- Main execution logic\ndef main():\n    # Connect to the server and check internet connectivity\n    server_url = None\n    for attempt in range(1, 2):\n        print(f'Attempt {attempt} to connect...')\n        server_url = connect_to_server()\n        if server_url:\n            break\n        sleep(5)\n    if not server_url:\n        print(\"Failed to connect after 10 attempts.\")\n        return\n\n    # Initialize the Survey Solutions client\n\n    # Retrieve necessary configuration details\n    api_user = config['susol']['api_user']\n    passwd = config['susol']['api_password']\n    wkspace = config['susol']['workspace']\n    quizid = config['susol']['quiz_id']\n\n    client = Client(url=server_url, api_user=api_user, api_password=passwd, workspace=wkspace)\n\n    # Process each questionnaire\n    for quizname, quizid in questionnaires.items():\n        qnr_data = get_questionnaire_versions(client, quizid)\n        if qnr_data:\n            qnrids, qnrversions = zip(*qnr_data)\n            print(f'The highest version of {quizname} is {max(qnrversions)}. Downloading versions from {min(qnrversions)} to {max(qnrversions)}.')\n            download_all_versions(client, qnrids, qnrversions)\n        else:\n            print(f'No versions found for {quizname}.')\n\nif __name__ == \"__main__\":\n    main()",
+    "section": "2.6 Summary",
+    "text": "2.6 Summary\nBelow is a summary of the steps you need to undertake in order to download data from Survey Solutions server to your machine.\n\nCreate API User: Ensure you have an API user created.\nGather Information: Collect the following:\n\nURL\nAPI username\nAPI password\nWorkspace\nQuestionnaire ID\n\nInstall ssaw Module: Use Python to install the ssaw module.\nCreate .ini Config File: Store all necessary information for the Survey Solutions Server.\nRun the Script: Execute the script to download the data!",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data Download</span>"
+    ]
+  },
+  {
+    "objectID": "data-import.html",
+    "href": "data-import.html",
+    "title": "3  Data Import",
+    "section": "",
+    "text": "3.1 Introduction\nAfter downloading the data, the next step is to import it into your programming environment for analysis. This section on data import is essential because Survey Solutions stores the downloaded data in a specific format. In our download script, we specified export_type='STATA', which I prefer because STATA files include both variable labels and value labels, eliminating the need to redefine them. Additionally, note that the downloaded data is in a zipped format. If you have two versions of a questionnaire, you’ll receive two separate zipped files. There are two ways you can import this data into R:\nOur focus will be the second one.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Import</span>"
+    ]
+  },
+  {
+    "objectID": "data-import.html#introduction",
+    "href": "data-import.html#introduction",
+    "title": "3  Data Import",
+    "section": "",
+    "text": "Manual Import: Unzip each folder and then import the individual files into your programming environment.\nAutomated Import: Use a script to handle all the importing procedures, streamlining the process.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Import</span>"
+    ]
+  },
+  {
+    "objectID": "data-import.html#automated-import",
+    "href": "data-import.html#automated-import",
+    "title": "3  Data Import",
+    "section": "3.2 Automated Import",
+    "text": "3.2 Automated Import\nUsing a script to automate the import process is generally more efficient than manually unzipping and importing individual files. Here are some reasons why:\n\nTime-Saving: A script can process multiple files in a single run, eliminating the need for repetitive manual actions.\nReduced Errors: Automating the process minimizes the risk of human error that can occur during manual imports, such as skipping files or importing them incorrectly.\nConsistency: A script ensures that the same import process is followed every time, leading to consistent results.\nScalability: If the number of files or datasets increases, a script can easily accommodate the additional data without requiring more manual effort.\nEasy Adjustments: If changes are needed (e.g., modifying file paths or import settings), you can update the script instead of repeating the manual steps.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Import</span>"
+    ]
+  },
+  {
+    "objectID": "data-import.html#survey-solutions-data-structure",
+    "href": "data-import.html#survey-solutions-data-structure",
+    "title": "3  Data Import",
+    "section": "3.3 Survey Solutions Data Structure",
+    "text": "3.3 Survey Solutions Data Structure\nBefore diving into data importation, it’s crucial to understand the structure of the zipped directory and its contents from Survey Solutions. This knowledge will help you navigate the files efficiently and ensure that you are importing the correct data. The naming convention is questionnaire-name_versionnumber_Exporttype_All.zip. Example ssolutions_training_1_STATA_All.zip.\n\n\n\nContents of zipped directory\n\n\nThe contents include the data and metadata:\n\n3.3.1 Metadata Files\nThese files provide additional context about the data. The include:\n\nassignment_actions\ninterview_actions\ninterview_comments\ninterview_diagnostics\ninterview_errors\nQuestionnaire: A directory containing the questionnaire\n\n\n\n3.3.2 Data Files\nThe data files are the core components of the downloaded dataset from Survey Solutions. Here’s a closer look at their significance and structure:\n\nMain Questionnaire File:\n\nThis file is named after the questionnaire itself and serves as the primary dataset containing the survey responses. The questionnaire variable is crucial here, as it uniquely identifies the survey you conducted. This unique name allows you to easily reference and manage the data throughout your analysis. In this context it is ssolutions_training\n\nRoster Datasets:\n\nIn addition to the main questionnaire file, there may be several additional files that contain data from rosters. Rosters are used in surveys to collect information on groups of similar items or respondents (e.g., household members, patients, etc.).\nEach roster file contains responses related to specific sections of the questionnaire and may include variables corresponding to individual roster entries.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Import</span>"
+    ]
+  },
+  {
+    "objectID": "data-import.html#import-data-in-r",
+    "href": "data-import.html#import-data-in-r",
+    "title": "3  Data Import",
+    "section": "3.4 Import Data in R",
+    "text": "3.4 Import Data in R\nNow that you understand the data structure and the contents of the zipped files from Survey Solutions, let’s dive into the process of importing this data into R. Importing data correctly is crucial for effective management and analysis.\nThe packages for use include:\n\nlibrary(tidyverse)          # Data management\nlibrary(haven)              # Import the stata files\n\nThe body of the code is below:\n\n# | include: false\n\n#---- List all the zip files. These are different versions of the questionnaire\n\nall_zips &lt;- list.files(\"data\", pattern = \"ssolutions_training.*.zip\",\n                       full.names = T)\n\n\n# ---- Download main questionnaire\n\nall_ssolutions_training &lt;- vector(\"list\")\n\nfor (zipfile in all_zips){\n\n  qversion &lt;- str_extract(zipfile, \"_\\\\d+_STATA_\")\n  qversion &lt;- parse_number(qversion)\n\n\n  unzip(zipfile, files = c(\"ssolutions_training.dta\"),\n        exdir = \"data\")\n\n\n  all_ssolutions_training[[zipfile]] &lt;- read_dta(\"data/ssolutions_training.dta\") |&gt;\n    mutate(quiz_version = qversion)\n}\n\n\n\nssolutions_training &lt;- all_ssolutions_training |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\nssolutions_training\n\n# A tibble: 1 × 184\n  interview__key interview__id     village_code village_name compound_head idhh \n  &lt;chr&gt;          &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;         &lt;chr&gt;\n1 28-20-96-94    93cb84617cfd475a… 100          Nyadimo      Kambusa       10-2…\n# ℹ 178 more variables: name_hh_head &lt;chr&gt;, staff_name &lt;dbl+lbl&gt;,\n#   idMenage &lt;chr&gt;, visit_no &lt;dbl&gt;, dateEntree &lt;chr&gt;, respondent_text &lt;chr&gt;,\n#   nomChefMenage &lt;chr&gt;, QM11 &lt;dbl&gt;, QM12 &lt;dbl&gt;, QM13 &lt;dbl&gt;, QM14 &lt;dbl&gt;,\n#   QM14b &lt;dbl&gt;, QM15 &lt;dbl&gt;, QS01 &lt;dbl+lbl&gt;, QS01_o &lt;chr&gt;, QS02 &lt;dbl+lbl&gt;,\n#   QS02_o &lt;chr&gt;, QS03 &lt;dbl+lbl&gt;, QS03_o &lt;chr&gt;, QS04 &lt;dbl+lbl&gt;, QS04_o &lt;chr&gt;,\n#   QS05 &lt;dbl+lbl&gt;, QS05_o &lt;chr&gt;, QS06 &lt;dbl+lbl&gt;, QS06_o &lt;chr&gt;, QS07 &lt;dbl+lbl&gt;,\n#   QS07_o &lt;chr&gt;, QS08 &lt;dbl+lbl&gt;, QS08_o &lt;chr&gt;, QS09 &lt;dbl+lbl&gt;, …\n\n# ---- Save the main questionnaire\n\nwrite_rds(ssolutions_training, \"data/ssolutions_training_main.rds\")\n\n\n# ---- Download the rosters\n\nall_membre &lt;- vector(\"list\")\nall_cultureanne &lt;- vector(\"list\")\nall_r200 &lt;- vector(\"list\")\n\n\nfor (zipfile in all_zips){\n\n  qversion &lt;- str_extract(zipfile, \"_\\\\d+_STATA_\")\n  qversion &lt;- parse_number(qversion)\n\n\n  unzip(zipfile, files = c(\"membre.dta\", \"r_cultureAnnee.dta\", \"r200.dta\"),\n        exdir = \"data\")\n\n\n  all_membre[[zipfile]] &lt;- read_dta(\"data/membre.dta\") |&gt;\n    mutate(quiz_version = qversion)\n  \n  all_cultureanne[[zipfile]] &lt;- read_dta(\"data/r_cultureAnnee.dta\") |&gt;\n    mutate(quiz_version = qversion)\n  \n  \n  all_r200[[zipfile]] &lt;- read_dta(\"data/r200.dta\") |&gt;\n    mutate(quiz_version = qversion)\n  \n}\n\n\n\n\nmembre &lt;- all_membre |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\n\ncultureanne &lt;- all_cultureanne |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\nr200 &lt;- all_r200 |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\n\n3.4.1 Full Script\n\nlibrary(tidyverse)          # Data management\nlibrary(haven)              # Import the stata files\n\n#---- List all the zip files. These are different versions of the questionnaire\n\nall_zips &lt;- list.files(\"data\", pattern = \"ssolutions_training.*.zip\",\n                       full.names = T)\n\n\n# ---- Download main questionnaire\n\nall_ssolutions_training &lt;- vector(\"list\")\n\nfor (zipfile in all_zips){\n\n  qversion &lt;- str_extract(zipfile, \"_\\\\d+_STATA_\")\n  qversion &lt;- parse_number(qversion)\n\n\n  unzip(zipfile, files = c(\"ssolutions_training.dta\"),\n        exdir = \"data\")\n\n\n  all_ssolutions_training[[zipfile]] &lt;- read_dta(\"data/ssolutions_training.dta\") |&gt;\n    mutate(quiz_version = qversion)\n}\n\n\n\nssolutions_training &lt;- all_ssolutions_training |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\nssolutions_training |&gt; select(1, 3:5)\n\n# A tibble: 1 × 4\n  interview__key village_code village_name compound_head\n  &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;        \n1 28-20-96-94    100          Nyadimo      Kambusa      \n\n# ---- Save the main questionnaire\n\nwrite_rds(ssolutions_training, \"ssolutions_training_main.rds\")\n\n\n# ---- Download the rosters\n\nall_membre &lt;- vector(\"list\")\nall_cultureanne &lt;- vector(\"list\")\nall_r200 &lt;- vector(\"list\")\n\n\nfor (zipfile in all_zips){\n\n  qversion &lt;- str_extract(zipfile, \"_\\\\d+_STATA_\")\n  qversion &lt;- parse_number(qversion)\n\n\n  unzip(zipfile, files = c(\"membre.dta\", \"r_cultureAnnee.dta\", \"r200.dta\"),\n        exdir = \"data\")\n\n\n  all_membre[[zipfile]] &lt;- read_dta(\"data/membre.dta\") |&gt;\n    mutate(quiz_version = qversion)\n  \n  all_cultureanne[[zipfile]] &lt;- read_dta(\"data/r_cultureAnnee.dta\") |&gt;\n    mutate(quiz_version = qversion)\n  \n  \n  all_r200[[zipfile]] &lt;- read_dta(\"data/r200.dta\") |&gt;\n    mutate(quiz_version = qversion)\n  \n}\n\n\nmembre &lt;- all_membre |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\n\ncultureanne &lt;- all_cultureanne |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\nr200 &lt;- all_r200 |&gt; \n  map(bind_rows, .progress = TRUE) |&gt;  \n  list_rbind() \n\nwrite_rds(membre, \"data/membre.rds\")\nwrite_rds(cultureanne, \"data/cultureanne.rds\")\nwrite_rds(r200, \"data/r200.rds\")\n\n\n\n3.4.2 Optimised Code\n\nlibrary(tidyverse)          # Data management\nlibrary(haven)              # Import the Stata files\n\n# ---- List all the zip files. These are different versions of the questionnaire\nall_zips &lt;- list.files(\"data\", pattern = \"ssolutions_training.*.zip\", \n                       full.names = TRUE)\n\n# ---- Function to extract and read data\nread_data_from_zip &lt;- function(zipfile, file_name, qversion) {\n  unzip(zipfile, files = file_name, exdir = \"data\")\n  read_dta(file.path(\"data\", file_name)) %&gt;% mutate(quiz_version = qversion)\n}\n\n# ---- Download main questionnaire\nall_ssolutions_training &lt;- map(all_zips, function(zipfile) {\n  qversion &lt;- parse_number(str_extract(zipfile, \"_\\\\d+_STATA_\"))\n  read_data_from_zip(zipfile, \"ssolutions_training.dta\", qversion)\n})\n\nssolutions_training &lt;- bind_rows(all_ssolutions_training, .id = \"source\")  # Add a source column if needed\n\n# ---- Save the main questionnaire\nwrite_rds(ssolutions_training, \"data/ssolutions_training_main.rds\")\n\n# ---- Download the rosters\nall_rosters &lt;- map(all_zips, function(zipfile) {\n  qversion &lt;- parse_number(str_extract(zipfile, \"_\\\\d+_STATA_\"))\n  \n  # Read all roster files into a list\n  roster_files &lt;- c(\"membre.dta\", \"r_cultureAnnee.dta\", \"r200.dta\")\n  map(roster_files, ~ read_data_from_zip(zipfile, ., qversion))\n})\n\n# ---- Combine roster data\nmembre &lt;- bind_rows(map(all_rosters, `[[`, 1), .id = \"source\")  # First roster: membre\ncultureanne &lt;- bind_rows(map(all_rosters, `[[`, 2), .id = \"source\")  # Second roster: r_cultureAnnee\nr200 &lt;- bind_rows(map(all_rosters, `[[`, 3), .id = \"source\")  # Third roster: r200\n\n\nwrite_rds(membre, \"data/membre.rds\")\nwrite_rds(cultureanne, \"data/cultureanne.rds\")\nwrite_rds(r200, \"data/r200.rds\")",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data Import</span>"
+    ]
+  },
+  {
+    "objectID": "data-cleaning.html",
+    "href": "data-cleaning.html",
+    "title": "4  Data Cleaning",
+    "section": "",
+    "text": "4.1 Introduction\nData cleaning is a vital step in data analysis, ensuring accuracy and consistency in your dataset. While there isn’t a one-size-fits-all template, each dataset presents unique challenges that require context-specific solutions. A thorough understanding of the study design is key to effective data cleaning. For instance, cross-sectional studies should have unique participant records, whereas longitudinal studies involve repeated measures.\nAnother crucial detail is the unit of analysis. For example, in datasets involving households and their members, it’s essential to understand how households and participants are uniquely identified to ensure accurate data handling.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "data-cleaning.html#introduction",
+    "href": "data-cleaning.html#introduction",
+    "title": "4  Data Cleaning",
+    "section": "",
+    "text": "4.1.1 Primary Key\nA primary key is a unique identifier for each record in a dataset, ensuring that no two rows are identical. It is crucial for maintaining data integrity, especially when dealing with relational databases or complex datasets. The primary key allows you to retrieve, update, or relate specific records without ambiguity.\nIn a dataset involving households and members, for example:\n\nHousehold ID might be the primary key for identifying households.\nMember ID (within a household) could serve as a secondary key to uniquely identify individuals in relation to the household.\n\nThe primary key is essential for linking related tables (e.g., household and member tables) and avoiding data duplication or inconsistencies. The study design should have a mechanism of uniquely identifying the records in a dataset.\n\n\n4.1.2 Survey Solutions Primary Key\nIn Survey Solutions, linking the main questionnaire dataset with roster datasets is done through two key variables:\n\ninterview_key: This is a user-friendly identifier used to uniquely reference interviews. It can be helpful when referencing or reviewing specific interviews during data collection or management.\ninterview_id: This is a unique identifier generated by the system for each interview. It serves as a reliable key to link datasets, including the main questionnaire and any associated rosters, ensuring consistency and accuracy when combining data across various sections of the study.\n\nThese variables play a critical role in maintaining the integrity of data across the different components of the survey.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "data-cleaning.html#common-data-cleaning-process",
+    "href": "data-cleaning.html#common-data-cleaning-process",
+    "title": "4  Data Cleaning",
+    "section": "4.2 Common Data Cleaning Process",
+    "text": "4.2 Common Data Cleaning Process\n\nlibrary(tidyverse)\nlibrary(janitor)\nlibrary(haven)\n\n\n4.2.1 Cleaning Column Names\n\nsstraining_main &lt;- read_rds(\"data/ssolutions_training_main.rds\")\n\n\n\nsstraining_main &lt;- sstraining_main |&gt; \n  clean_names()\n\n\nmembers &lt;- read_rds(\"data/membre.rds\")\n\nmembers &lt;- members |&gt; \n  clean_names()\n\n\n\n4.2.2 Check Duplicates\n\ndups_ssmain &lt;- sstraining_main |&gt; \n  get_dupes(idhh)\n\n\n\n4.2.3 Handle Missing Values\n\nlibrary(naniar) \ngenerate_missing_report &lt;- function(data) {\n  missing_report &lt;- miss_var_summary(data, order = TRUE,\n                                     add_cumsum = TRUE)  |&gt; \n    filter(n_miss != 0) %&gt;%\n    dplyr::select(variable, pct_miss, n_miss)  |&gt; \n    mutate(pct_miss = round(pct_miss, 1)) |&gt; \n    filter(pct_miss &gt; 0) |&gt; \n    rename(percentage_missing = pct_miss)\n  \n  missing_report\n  \n}\n\n\ngenerate_missing_report(sstraining_main)\n\n# A tibble: 17 × 3\n   variable        percentage_missing n_miss\n   &lt;chr&gt;                        &lt;num&gt;  &lt;int&gt;\n 1 q_aepotravail_1                100      1\n 2 q_aepotravail_2                100      1\n 3 q_aepotravail_3                100      1\n 4 q_aepotravail_4                100      1\n 5 q_aepotravail_9                100      1\n 6 qd24a_1                        100      1\n 7 qd24a_2                        100      1\n 8 qd24a_3                        100      1\n 9 qd25                           100      1\n10 qd26                           100      1\n11 qd27                           100      1\n12 qd28                           100      1\n13 qd29                           100      1\n14 qd30                           100      1\n15 qd31                           100      1\n16 qd32                           100      1\n17 qd32a                          100      1\n\nsstraining_main &lt;- sstraining_main |&gt; \n  remove_empty(which = c(\"rows\", \"cols\"))\n\n\n\n4.2.4 Type Casting\nThis process involves transforming data from one type to another, such as converting a string to a number, or an integer to a floating-point number, depending on the requirements of the operation.\n\nsstraining_main &lt;- sstraining_main |&gt; \n  mutate(across(where(is.labelled), as_factor))\n\nI usually convert labeled types to factors which are useful in further analysis.\n\n\n4.2.5 Labeling Variables\nOne of the significant advantages of using Survey Solutions is the ability to label variables at the time of questionnaire design. This feature ensures that each variable in your survey is clearly identified with a meaningful label, which simplifies data management and analysis later on.\nHowever you may want to manually label the variables.\n\nattr(sstraining_main[['qa03']], 'label') &lt;- \"Pay non-family members to work on your fields\"\n\nwrite_rds(sstraining_main, \"data/sstraining_main_clean.rds\")",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Data Cleaning</span>"
+    ]
+  },
+  {
+    "objectID": "report-generation.html",
+    "href": "report-generation.html",
+    "title": "5  Report Generation",
+    "section": "",
+    "text": "5.1 Introduction\nThe ultimate objective of any data preprocessing effort is to generate useful output. Whether it’s calculating summary statistics of key variables, tracking data collection progress, building dashboards with actionable insights, developing complex models, or creating other data products, reporting is essential to communicate findings effectively.\nGenerating real-time progress reports during data collection is especially important. This allows you to catch potential issues early on, such as:\nThese insights enable immediate corrective actions, ensuring data integrity throughout the collection process.\nThe great news is that report generation can be integrated seamlessly into your data management pipeline! Additionaly, before diving into serious analysis, it’s crucial to perform Exploratory Data Analysis (EDA) to thoroughly check your data. EDA helps you understand the structure, detect anomalies, and identify patterns that could impact your analysis. It ensures that your dataset is clean, reliable, and ready for deeper insights. I will provide a very basic EDA on our dataset.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Report Generation</span>"
+    ]
+  },
+  {
+    "objectID": "report-generation.html#introduction",
+    "href": "report-generation.html#introduction",
+    "title": "5  Report Generation",
+    "section": "",
+    "text": "Missed skip logic\nIncorrect validation rules\nOther data-related inconsistencies",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Report Generation</span>"
+    ]
+  },
+  {
+    "objectID": "report-generation.html#code-to-generate-report",
+    "href": "report-generation.html#code-to-generate-report",
+    "title": "5  Report Generation",
+    "section": "5.2 Code to Generate Report",
+    "text": "5.2 Code to Generate Report\nSo far we have visited 1 households and managed to interview 1 Below is a summary of household information:\n\n5.2.1 Household Information\nThe variables here start with qs or qm\n\n\nVariableN = 1RoofSheets or similar0 (0%)Straw/ thatch1 (100%)Clay0 (0%)Wood0 (0%)Other (specify)0 (0%)WallConcrete1 (100%)Chipped stone0 (0%)Clay0 (0%)Wood0 (0%)Tent0 (0%)Other (specify)0 (0%)GroundPure cement0 (0%)Clay1 (100%)Tile0 (0%)Other (specify)0 (0%)Water sourceFaucet/Tap0 (0%)Pump/drilling0 (0%)Well1 (100%)Running water0 (0%)Rain0 (0%)Bottle/bag0 (0%)Other (specify)0 (0%)Water source locationIn the own house0 (0%)In the own court/compound0 (0%)In the neighbor's court/compound1 (100%)Public well/tank/drilled pump0 (0%)stream/river0 (0%)Other (specify)0 (0%)\n\n\n\n\n5.2.2 Agriculture\nThe variables here start with qa and qd.\n\n\nVariableN = 1Have a farm where you grow cropsYes1 (100%)No0 (0%)Pay non-family members to work on your fieldsYes0 (0%)No1 (100%)Number of sicklesNone1 (100%)Don't know0 (0%)Number of large trolleysNone1 (100%)Don't know0 (0%)Number of small trolleysNone1 (100%)Don't know0 (0%)\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou can continue with other sections as required.\n\n\n\n\n5.2.3 Summary\nRun your report on cleaned or partially cleaned data, tailoring the content to the needs of your audience. Review the distribution of key variables, and don’t overlook free text fields, as they can provide valuable insights for categorical variables.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Report Generation</span>"
+    ]
+  },
+  {
+    "objectID": "master.html",
+    "href": "master.html",
+    "title": "6  Master Script",
+    "section": "",
+    "text": "6.1 Introduction\nA key way to streamline workflows in data management is by using a master script that runs multiple other scripts. This approach centralizes execution, ensuring consistency and efficiency across tasks. A master script acts as the central hub that coordinates and runs other scripts, automating various tasks and ensuring consistency across processes.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Master Script</span>"
+    ]
+  },
+  {
+    "objectID": "master.html#advantages",
+    "href": "master.html#advantages",
+    "title": "6  Master Script",
+    "section": "6.2 Advantages",
+    "text": "6.2 Advantages\n\nEfficiency: It saves time by automating repetitive tasks, reducing the need for manual intervention.\nConsistency: Ensures that all tasks are performed in the same sequence and manner each time, minimizing errors.\nOrganization: Keeps your workflow organized by managing dependencies and scheduling the execution of individual scripts.\nFlexibility: You can easily update or modify the workflow by editing the master script without changing individual components.\n\nBy integrating all essential steps into a single execution file, a master script optimizes data management, making the entire process more reliable and seamless.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Master Script</span>"
+    ]
+  },
+  {
+    "objectID": "master.html#structure-of-the-script",
+    "href": "master.html#structure-of-the-script",
+    "title": "6  Master Script",
+    "section": "6.3 Structure of The Script",
+    "text": "6.3 Structure of The Script\nRun the script form the first to the last.\n\n#| label: Structure of script\n\n#--- Import data \n\nsource(\"scripts/01-data-import.R\")\n\n# ---- Clean data\n\nsource(\"scripts/02-data-cleaning.R\")",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Master Script</span>"
+    ]
+  },
+  {
+    "objectID": "send-report.html",
+    "href": "send-report.html",
+    "title": "7  Send Report",
+    "section": "",
+    "text": "7.1 Introduction\nAfter generating your well-designed reports, the next crucial step is sharing them with stakeholders. I use Python, along with Gmail, to automate the process of sending updated reports, ensuring timely delivery and minimizing manual effort. This allows for a smooth, consistent distribution of reports, saving time and reducing errors.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Send Report</span>"
+    ]
+  },
+  {
+    "objectID": "send-report.html#gmail-app-password",
+    "href": "send-report.html#gmail-app-password",
+    "title": "7  Send Report",
+    "section": "7.2 Gmail App Password",
+    "text": "7.2 Gmail App Password\nGoogle provides a secure way to configure applications with its products by allowing developers to generate app passwords. These passwords are specifically designed for use in applications, offering a secure and streamlined way to integrate with Google services, such as Gmail, without using your primary account password. This enhances security and simplifies authentication for app developers. Below are steps\n\nEnable 2-Step Verification:\n\nGo to your Google Account.\nUnder “Signing in to Google,” select 2-Step Verification and follow the prompts to set it up.\n\nGenerate an App Password:\n\nAfter enabling 2-Step Verification, return to your Google Account.\nIn the Security section, expand 2-Step Verification\nYou may need to sign in again for security purposes.\nIn the App passwords section, enter the name of the app; any name (training, python)\nClick Create\n\nUse the App Password:\n\nA 16-character app password will be displayed. Copy this password.\nUse this app password in place of your regular Gmail password in the application you are configuring.\n\nSave Your App Password:\n\nKeep this password secure, as it grants access to your Google account from the application. You can generate multiple app passwords if needed.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Send Report</span>"
+    ]
+  },
+  {
+    "objectID": "send-report.html#sending-updates",
+    "href": "send-report.html#sending-updates",
+    "title": "7  Send Report",
+    "section": "7.3 Sending Updates",
+    "text": "7.3 Sending Updates\nBelow is a Python script for sending reports via Gmail using an app password. This automates the process of sharing reports with stakeholders:\n\nfrom email.mime.application import MIMEApplication\nfrom email.mime.multipart import MIMEMultipart\nfrom email.mime.text import MIMEText\nimport configparser\nimport smtplib\nfrom os.path import basename\n\n\nconfig = configparser.ConfigParser()\nconfig.read('config.ini')\n\nsender = config['email']['email_address']\napp_password = config['email']['pass_word']\n\nto_emails = [config['email']['recipient1'], config['email']['recipient2'],\nconfig['email']['recipient3']]\n\n\ndef send_mail(send_from: str, subject: str, text: str,\n              send_to: list, filess=None):\n    send_to = sender if not send_to else send_to\n\n    msg = MIMEMultipart()\n    msg['From'] = send_from\n    msg['To'] = ', '.join(send_to)\n    msg['Subject'] = subject\n\n    msg.attach(MIMEText(text))\n\n    for f in filess or []:\n        with open(f, \"rb\") as fil:\n            ext = f.split('.')[-1:]\n            attachedfile = MIMEApplication(fil.read(), _subtype=ext)\n            attachedfile.add_header(\n                'content-disposition', 'attachment', filename=basename(f))\n        msg.attach(attachedfile)\n    try:\n      server = smtplib.SMTP_SSL('smtp.gmail.com', 465)\n      server.login(sender, app_password)\n      server.sendmail(send_from, send_to, msg.as_string())\n      print(\"Email sent successfully!\")\n    except smtplib.SMTPException as e:\n      print(f\"Failed to send email: {e}\")\n    finally:\n      server.quit()\n\nYou can write the body of the email in the script as below:\n\nfiles_tosend = [\"./data-import.qmd\"]   \n    \nsend_mail(\n  send_from = sender,\n  subject = \"Test Email\",\n  text = \"Dear Moses, \\nThis is a test email.\\n\\r Kind regard,, \\n Moses\",\n  filess = files_tosend,\n  send_to = to_emails)\n\nAnother option is to store the email body in a text file, allowing you to easily update the content without modifying the script. This approach keeps your workflow organized and ensures that any changes to the message can be made quickly and cleanly, maintaining a clear separation between code and content. It’s a more efficient and scalable way to handle message updates, especially when dealing with frequent changes or multiple stakeholders.\n\nwith open('message-body.txt') as f:\n  message_send = f.read()\n  \n  \nsend_mail(\n  send_from = sender,\n  subject = \"Test Email\",\n  text = message_send,\n  filess = files_tosend,\n  send_to = to_emails)",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Send Report</span>"
+    ]
+  },
+  {
+    "objectID": "send-report.html#summary",
+    "href": "send-report.html#summary",
+    "title": "7  Send Report",
+    "section": "7.4 Summary",
+    "text": "7.4 Summary\nOnce reports are generated, the next step is ensuring timely distribution to stakeholders. Automating this process with Python and Gmail enhances efficiency by reducing manual effort. By using a Gmail app password, which offers a secure way to integrate Gmail into applications without compromising your main account password, you ensure smooth, secure, and reliable email distribution.\nThe script provided sends reports as email attachments. It reads the sender’s credentials and recipients’ information from a configuration file (config.ini). The function send_mail handles the email composition and attachments, sending them securely via Gmail’s SMTP server. In the event of failure, the script uses a try-except block to catch errors and ensures the server connection is closed.\nAn additional recommendation is to store the email body in a separate text file for easier management, especially when frequently updating the content for various stakeholders. This keeps the script clean and maintainable.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Send Report</span>"
     ]
   }
 ]

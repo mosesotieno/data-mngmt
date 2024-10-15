@@ -166,6 +166,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./data-cleaning.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Data Cleaning</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./report-generation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Report Generation</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./master.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Master Script</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./send-report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Send Report</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -193,8 +217,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#connect-to-server" id="toc-connect-to-server" class="nav-link" data-scroll-target="#connect-to-server"><span class="header-section-number">2.4.3</span> Connect to server</a></li>
   <li><a href="#export-data" id="toc-export-data" class="nav-link" data-scroll-target="#export-data"><span class="header-section-number">2.4.4</span> Export Data</a></li>
   </ul></li>
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.5</span> Summary</a></li>
-  <li><a href="#download-script" id="toc-download-script" class="nav-link" data-scroll-target="#download-script"><span class="header-section-number">2.6</span> Download Script</a></li>
+  <li><a href="#download-script" id="toc-download-script" class="nav-link" data-scroll-target="#download-script"><span class="header-section-number">2.5</span> Download Script</a>
+  <ul class="collapse">
+  <li><a href="#customizing-download-script" id="toc-customizing-download-script" class="nav-link" data-scroll-target="#customizing-download-script"><span class="header-section-number">2.5.1</span> Customizing Download Script</a></li>
+  <li><a href="#error-handling-and-debugging" id="toc-error-handling-and-debugging" class="nav-link" data-scroll-target="#error-handling-and-debugging"><span class="header-section-number">2.5.2</span> Error Handling and Debugging</a></li>
+  <li><a href="#convention-assigning-one-workspace-to-one-directory" id="toc-convention-assigning-one-workspace-to-one-directory" class="nav-link" data-scroll-target="#convention-assigning-one-workspace-to-one-directory"><span class="header-section-number">2.5.3</span> Convention: Assigning One Workspace to One Directory</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">2.6</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -399,7 +428,7 @@ pip install ssaw</code></pre>
 <section id="modules" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="modules"><span class="header-section-number">2.4.2</span> Modules</h3>
 <p>I use the following modules in data management pipeline especially when working with Survey Solutions:</p>
-<div id="de1ab43d" class="cell" data-execution_count="1">
+<div id="d7dd4296" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssaw <span class="im">import</span> Client, ExportApi, QuestionnairesApi, models</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> sleep</span>
@@ -478,28 +507,10 @@ pip install ssaw</code></pre>
 <p>Between the <strong><em>Details/</em></strong> and <strong><em>$</em></strong> sign is the id.</p>
 </section>
 </section>
-<section id="summary" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.5</span> Summary</h2>
-<p>Below is a summary of the steps you need to undertake in order to download data from Survey Solutions server to your machine.</p>
-<ul>
-<li><strong>Create API User</strong>: Ensure you have an API user created.</li>
-<li><strong>Gather Information</strong>: Collect the following:
-<ul>
-<li><p>URL</p></li>
-<li><p>API username</p></li>
-<li><p>API password</p></li>
-<li><p>Workspace</p></li>
-<li><p>Questionnaire ID</p></li>
-</ul></li>
-<li><strong>Install <code>ssaw</code> Module</strong>: Use Python to install the <code>ssaw</code> module.</li>
-<li><strong>Create .ini Config File</strong>: Store all necessary information for the Survey Solutions Server.</li>
-<li><strong>Run the Script</strong>: Execute the script to download the data!</li>
-</ul>
-</section>
-<section id="download-script" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="download-script"><span class="header-section-number">2.6</span> Download Script</h2>
+<section id="download-script" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="download-script"><span class="header-section-number">2.5</span> Download Script</h2>
 <p>The complete script to download data is given below:</p>
-<div id="ec8500f8" class="cell" data-execution_count="2">
+<div id="2f4423b9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Download the trial dataset from the Survey Solutions server</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Moses Otieno</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Date Created: 14 Oct 2024</span></span>
@@ -589,7 +600,7 @@ pip install ssaw</code></pre>
 <span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Failed to connect after 10 attempts."</span>)</span>
 <span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
 <span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize the Survey Solutions client</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Retrieve necessary configuration details</span></span>
 <span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>    api_user <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'api_user'</span>]</span>
@@ -597,21 +608,64 @@ pip install ssaw</code></pre>
 <span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>    wkspace <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'workspace'</span>]</span>
 <span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    quizid <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'quiz_id'</span>]</span>
 <span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>    client <span class="op">=</span> Client(url<span class="op">=</span>server_url, api_user<span class="op">=</span>api_user, api_password<span class="op">=</span>passwd, workspace<span class="op">=</span>wkspace)</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Process each questionnaire</span></span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> quizname, quizid <span class="kw">in</span> questionnaires.items():</span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>        qnr_data <span class="op">=</span> get_questionnaire_versions(client, quizid)</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> qnr_data:</span>
-<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>            qnrids, qnrversions <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>qnr_data)</span>
-<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f'The highest version of </span><span class="sc">{</span>quizname<span class="sc">}</span><span class="ss"> is </span><span class="sc">{</span><span class="bu">max</span>(qnrversions)<span class="sc">}</span><span class="ss">. Downloading versions from </span><span class="sc">{</span><span class="bu">min</span>(qnrversions)<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span><span class="bu">max</span>(qnrversions)<span class="sc">}</span><span class="ss">.'</span>)</span>
-<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>            download_all_versions(client, qnrids, qnrversions)</span>
-<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f'No versions found for </span><span class="sc">{</span>quizname<span class="sc">}</span><span class="ss">.'</span>)</span>
-<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
-<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Initialize the Survey Solutions client</span></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>    client <span class="op">=</span> Client(url<span class="op">=</span>server_url, api_user<span class="op">=</span>api_user, api_password<span class="op">=</span>passwd, workspace<span class="op">=</span>wkspace)</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Process each questionnaire</span></span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> quizname, quizid <span class="kw">in</span> questionnaires.items():</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>        qnr_data <span class="op">=</span> get_questionnaire_versions(client, quizid)</span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> qnr_data:</span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>            qnrids, qnrversions <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>qnr_data)</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f'The highest version of </span><span class="sc">{</span>quizname<span class="sc">}</span><span class="ss"> is </span><span class="sc">{</span><span class="bu">max</span>(qnrversions)<span class="sc">}</span><span class="ss">. Downloading versions from </span><span class="sc">{</span><span class="bu">min</span>(qnrversions)<span class="sc">}</span><span class="ss"> to </span><span class="sc">{</span><span class="bu">max</span>(qnrversions)<span class="sc">}</span><span class="ss">.'</span>)</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>            download_all_versions(client, qnrids, qnrversions)</span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f'No versions found for </span><span class="sc">{</span>quizname<span class="sc">}</span><span class="ss">.'</span>)</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>    main()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<section id="customizing-download-script" class="level3" data-number="2.5.1">
+<h3 data-number="2.5.1" class="anchored" data-anchor-id="customizing-download-script"><span class="header-section-number">2.5.1</span> Customizing Download Script</h3>
+<p>I’ve done my best to make things easy for you. However, you need to provide specific details in the script to download your data:</p>
+<ol type="1">
+<li><p><strong>config.ini</strong>: Create a <code>config.ini</code> file with a section called <strong>susol</strong>. Include the required details: <code>api user</code>, <code>api password</code>, <code>url</code>, and <code>workspace</code>.</p></li>
+<li><p><strong>Questionnaire</strong>: Identify the IDs of the questionnaires you want to download and add them to the config file.</p></li>
+<li><p><strong>export_path</strong>: Specify the download directory for the data. The script assumes there’s a <strong>data</strong> directory in the same path; if not, create one or specify your desired directory.</p></li>
+</ol>
+<p>Once you have this information, you’ll be able to download your data.</p>
+</section>
+<section id="error-handling-and-debugging" class="level3" data-number="2.5.2">
+<h3 data-number="2.5.2" class="anchored" data-anchor-id="error-handling-and-debugging"><span class="header-section-number">2.5.2</span> Error Handling and Debugging</h3>
+<ul>
+<li><p>If the script fails to connect, check your internet connection and the details in <code>config.ini</code>.</p></li>
+<li><p>If you receive an “Invalid Questionnaire ID” error, verify that the IDs in the <code>questionnaires</code> dictionary are correct.</p></li>
+<li><p>Monitor the output messages for any errors during the download process.</p></li>
+</ul>
+</section>
+<section id="convention-assigning-one-workspace-to-one-directory" class="level3" data-number="2.5.3">
+<h3 data-number="2.5.3" class="anchored" data-anchor-id="convention-assigning-one-workspace-to-one-directory"><span class="header-section-number">2.5.3</span> Convention: Assigning One Workspace to One Directory</h3>
+<p>In many data management and programming workflows, particularly when dealing with multiple datasets, scripts, and configurations, establishing a clear and consistent directory structure is essential for maintaining organization and efficiency. I strongly advocate for the convention of assigning one workspace to one directory. A workspace can contain multiple questionnaires, so this script assumes that you will work with each workspace separately.</p>
+</section>
+</section>
+<section id="summary" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.6</span> Summary</h2>
+<p>Below is a summary of the steps you need to undertake in order to download data from Survey Solutions server to your machine.</p>
+<ul>
+<li><strong>Create API User</strong>: Ensure you have an API user created.</li>
+<li><strong>Gather Information</strong>: Collect the following:
+<ul>
+<li><p>URL</p></li>
+<li><p>API username</p></li>
+<li><p>API password</p></li>
+<li><p>Workspace</p></li>
+<li><p>Questionnaire ID</p></li>
+</ul></li>
+<li><strong>Install <code>ssaw</code> Module</strong>: Use Python to install the <code>ssaw</code> module.</li>
+<li><strong>Create .ini Config File</strong>: Store all necessary information for the Survey Solutions Server.</li>
+<li><strong>Run the Script</strong>: Execute the script to download the data!</li>
+</ul>
 
 
 </section>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>References – Data Management</title>
+<title>7&nbsp; Send Report – Data Management</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,26 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
 }
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -49,7 +64,8 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./send-report.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./master.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -99,7 +115,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./send-report.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Send Report</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -168,13 +184,13 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./send-report.html" class="sidebar-item-text sidebar-link">
+  <a href="./send-report.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Send Report</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -183,15 +199,24 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">7.1</span> Introduction</a></li>
+  <li><a href="#gmail-app-password" id="toc-gmail-app-password" class="nav-link" data-scroll-target="#gmail-app-password"><span class="header-section-number">7.2</span> Gmail App Password</a></li>
+  <li><a href="#sending-updates" id="toc-sending-updates" class="nav-link" data-scroll-target="#sending-updates"><span class="header-section-number">7.3</span> Sending Updates</a></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">7.4</span> Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">References</h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Send Report</span></h1>
 </div>
 
 
@@ -208,11 +233,121 @@ div.csl-indent {
 </header>
 
 
-<div id="refs" role="list" style="display: none">
-
+<section id="introduction" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">7.1</span> Introduction</h2>
+<p>After generating your well-designed reports, the next crucial step is sharing them with stakeholders. I use Python, along with Gmail, to automate the process of sending updated reports, ensuring timely delivery and minimizing manual effort. This allows for a smooth, consistent distribution of reports, saving time and reducing errors.</p>
+</section>
+<section id="gmail-app-password" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="gmail-app-password"><span class="header-section-number">7.2</span> Gmail App Password</h2>
+<p>Google provides a secure way to configure applications with its products by allowing developers to generate <strong>app passwords</strong>. These passwords are specifically designed for use in applications, offering a secure and streamlined way to integrate with Google services, such as Gmail, without using your primary account password. This enhances security and simplifies authentication for app developers. Below are steps</p>
+<ol type="1">
+<li><p><strong>Enable 2-Step Verification</strong>:</p>
+<ul>
+<li><p>Go to your <a href="https://myaccount.google.com/">Google Account.</a></p></li>
+<li><p>Under “Signing in to Google,” select <strong>2-Step Verification</strong> and follow the prompts to set it up.</p></li>
+</ul></li>
+<li><p><strong>Generate an App Password</strong>:</p>
+<ul>
+<li><p>After enabling 2-Step Verification, return to your Google Account.</p></li>
+<li><p>In the <strong>Security</strong> section, expand 2-Step Verification</p></li>
+<li><p>You may need to sign in again for security purposes.</p></li>
+<li><p>In the App passwords section, enter the name of the app; any name (training, python)</p></li>
+<li><p>Click <strong>Create</strong></p></li>
+</ul></li>
+<li><p><strong>Use the App Password</strong>:</p>
+<ul>
+<li><p>A 16-character app password will be displayed. Copy this password.</p></li>
+<li><p>Use this app password in place of your regular Gmail password in the application you are configuring.</p></li>
+</ul></li>
+<li><p><strong>Save Your App Password</strong>:</p>
+<ul>
+<li>Keep this password secure, as it grants access to your Google account from the application. You can generate multiple app passwords if needed.</li>
+</ul></li>
+</ol>
+</section>
+<section id="sending-updates" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sending-updates"><span class="header-section-number">7.3</span> Sending Updates</h2>
+<p>Below is a Python script for sending reports via Gmail using an app password. This automates the process of sharing reports with stakeholders:</p>
+<div id="ddf7a7f2" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.application <span class="im">import</span> MIMEApplication</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.multipart <span class="im">import</span> MIMEMultipart</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.text <span class="im">import</span> MIMEText</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> configparser</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> smtplib</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os.path <span class="im">import</span> basename</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<div id="cdb3ea91" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> configparser.ConfigParser()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config.read(<span class="st">'config.ini'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>sender <span class="op">=</span> config[<span class="st">'email'</span>][<span class="st">'email_address'</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>app_password <span class="op">=</span> config[<span class="st">'email'</span>][<span class="st">'pass_word'</span>]</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>to_emails <span class="op">=</span> [config[<span class="st">'email'</span>][<span class="st">'recipient1'</span>], config[<span class="st">'email'</span>][<span class="st">'recipient2'</span>],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">'email'</span>][<span class="st">'recipient3'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5514614a" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> send_mail(send_from: <span class="bu">str</span>, subject: <span class="bu">str</span>, text: <span class="bu">str</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              send_to: <span class="bu">list</span>, filess<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    send_to <span class="op">=</span> sender <span class="cf">if</span> <span class="kw">not</span> send_to <span class="cf">else</span> send_to</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    msg <span class="op">=</span> MIMEMultipart()</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    msg[<span class="st">'From'</span>] <span class="op">=</span> send_from</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    msg[<span class="st">'To'</span>] <span class="op">=</span> <span class="st">', '</span>.join(send_to)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    msg[<span class="st">'Subject'</span>] <span class="op">=</span> subject</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    msg.attach(MIMEText(text))</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> filess <span class="kw">or</span> []:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(f, <span class="st">"rb"</span>) <span class="im">as</span> fil:</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            ext <span class="op">=</span> f.split(<span class="st">'.'</span>)[<span class="op">-</span><span class="dv">1</span>:]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            attachedfile <span class="op">=</span> MIMEApplication(fil.read(), _subtype<span class="op">=</span>ext)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            attachedfile.add_header(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                <span class="st">'content-disposition'</span>, <span class="st">'attachment'</span>, filename<span class="op">=</span>basename(f))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        msg.attach(attachedfile)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      server <span class="op">=</span> smtplib.SMTP_SSL(<span class="st">'smtp.gmail.com'</span>, <span class="dv">465</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>      server.login(sender, app_password)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>      server.sendmail(send_from, send_to, msg.as_string())</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="st">"Email sent successfully!"</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> smtplib.SMTPException <span class="im">as</span> e:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>      <span class="bu">print</span>(<span class="ss">f"Failed to send email: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="cf">finally</span>:</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      server.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You can write the body of the email in the script as below:</p>
+<div id="e4fda128" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>files_tosend <span class="op">=</span> [<span class="st">"./data-import.qmd"</span>]   </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>send_mail(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  send_from <span class="op">=</span> sender,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  subject <span class="op">=</span> <span class="st">"Test Email"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  text <span class="op">=</span> <span class="st">"Dear Moses, </span><span class="ch">\n</span><span class="st">This is a test email.</span><span class="ch">\n\r</span><span class="st"> Kind regard,, </span><span class="ch">\n</span><span class="st"> Moses"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  filess <span class="op">=</span> files_tosend,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  send_to <span class="op">=</span> to_emails)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Another option is to store the email body in a text file, allowing you to easily update the content without modifying the script. This approach keeps your workflow organized and ensures that any changes to the message can be made quickly and cleanly, maintaining a clear separation between code and content. It’s a more efficient and scalable way to handle message updates, especially when dealing with frequent changes or multiple stakeholders.</p>
+<div id="083c5bfd" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'message-body.txt'</span>) <span class="im">as</span> f:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  message_send <span class="op">=</span> f.read()</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>send_mail(</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  send_from <span class="op">=</span> sender,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  subject <span class="op">=</span> <span class="st">"Test Email"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  text <span class="op">=</span> message_send,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  filess <span class="op">=</span> files_tosend,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  send_to <span class="op">=</span> to_emails) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="summary" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.4</span> Summary</h2>
+<p>Once reports are generated, the next step is ensuring timely distribution to stakeholders. Automating this process with Python and Gmail enhances efficiency by reducing manual effort. By using a Gmail app password, which offers a secure way to integrate Gmail into applications without compromising your main account password, you ensure smooth, secure, and reliable email distribution.</p>
+<p>The script provided sends reports as email attachments. It reads the sender’s credentials and recipients’ information from a configuration file (<code>config.ini</code>). The function <code>send_mail</code> handles the email composition and attachments, sending them securely via Gmail’s SMTP server. In the event of failure, the script uses a <code>try-except</code> block to catch errors and ensures the server connection is closed.</p>
+<p>An additional recommendation is to store the email body in a separate text file for easier management, especially when frequently updating the content for various stakeholders. This keeps the script clean and maintainable.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -637,11 +772,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./send-report.html" class="pagination-link" aria-label="Send Report">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Send Report</span></span>
+      <a href="./master.html" class="pagination-link" aria-label="Master Script">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Master Script</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
