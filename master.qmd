@@ -1,0 +1,40 @@
+# Master Script
+
+## Introduction
+
+A key way to streamline workflows in data management is by using a master script that runs multiple other scripts. This approach centralizes execution, ensuring consistency and efficiency across tasks. A master script acts as the central hub that coordinates and runs other scripts, automating various tasks and ensuring consistency across processes.
+
+## Advantages
+
+1.  **Efficiency**: It saves time by automating repetitive tasks, reducing the need for manual intervention.
+
+2.  **Consistency**: Ensures that all tasks are performed in the same sequence and manner each time, minimizing errors.
+
+3.  **Organization**: Keeps your workflow organized by managing dependencies and scheduling the execution of individual scripts.
+
+4.  **Flexibility**: You can easily update or modify the workflow by editing the master script without changing individual components.
+
+By integrating all essential steps into a single execution file, a master script optimizes data management, making the entire process more reliable and seamless.
+
+## Structure of The Script
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, ft.align = "left")
+options(gtsummary.tbl_summary.percent_fun = 
+          function(x) sprintf(x * 100, fmt='%#.1f'))
+```
+
+Run the script form the first to the last.
+
+```{r}
+
+#| label: Structure of script
+
+#--- Import data 
+
+source("scripts/01-data-import.R")
+
+# ---- Clean data
+
+source("scripts/02-data-cleaning.R")
+```
