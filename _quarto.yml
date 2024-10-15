@@ -10,6 +10,10 @@ book:
     - intro.qmd
     - data-download.qmd
     - data-import.qmd
+    - data-cleaning.qmd
+    - report-generation.qmd
+    - master.qmd
+    - send-report.qmd
     - references.qmd
 
 bibliography: references.bib

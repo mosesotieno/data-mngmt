@@ -359,7 +359,7 @@ the following:
   Ability to write and run batch files for task automation.
 \end{itemize}
 
-\begin{tcolorbox}[enhanced jigsaw, coltitle=black, colback=white, opacitybacktitle=0.6, bottomtitle=1mm, breakable, opacityback=0, colbacktitle=quarto-callout-note-color!10!white, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, rightrule=.15mm, colframe=quarto-callout-note-color-frame, toptitle=1mm, titlerule=0mm, left=2mm, toprule=.15mm, arc=.35mm, bottomrule=.15mm, leftrule=.75mm]
+\begin{tcolorbox}[enhanced jigsaw, colframe=quarto-callout-note-color-frame, rightrule=.15mm, title=\textcolor{quarto-callout-note-color}{\faInfo}\hspace{0.5em}{Note}, toprule=.15mm, coltitle=black, left=2mm, opacitybacktitle=0.6, colback=white, bottomrule=.15mm, leftrule=.75mm, opacityback=0, breakable, titlerule=0mm, bottomtitle=1mm, colbacktitle=quarto-callout-note-color!10!white, toptitle=1mm, arc=.35mm]
 
 While proficiency is not required in any of these areas, a good level of
 familiarity will be beneficial for following the tutorial.
@@ -723,37 +723,6 @@ Solution you need four pieces of information i.e.
   Name of the work space
 \end{itemize}
 
-\phantomsection\label{functions}
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{def}\NormalTok{ check\_net(url}\OperatorTok{=}\StringTok{\textquotesingle{}http://www.google.com/\textquotesingle{}}\NormalTok{, timeout}\OperatorTok{=}\DecValTok{5}\NormalTok{):}
-    \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{        \_ }\OperatorTok{=}\NormalTok{ requests.head(url, timeout}\OperatorTok{=}\NormalTok{timeout)}
-        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}Connection available on: }\SpecialCharTok{\{}\NormalTok{url}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
-        \ControlFlowTok{return} \VariableTok{True}
-    \ControlFlowTok{except}\NormalTok{ requests.}\PreprocessorTok{ConnectionError}\NormalTok{:}
-        \ControlFlowTok{return} \VariableTok{False}
-    
-\NormalTok{net\_available }\OperatorTok{=}\NormalTok{ check\_net()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Connection available on: http://www.google.com/
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ net\_available:}
-\NormalTok{  client }\OperatorTok{=}\NormalTok{ Client(url}\OperatorTok{=}\StringTok{"None"}\NormalTok{, }
-\NormalTok{  api\_user}\OperatorTok{=}\StringTok{"None"}\NormalTok{, }
-\NormalTok{  api\_password}\OperatorTok{=}\StringTok{"None"}\NormalTok{, }
-\NormalTok{  workspace}\OperatorTok{=}\StringTok{\textquotesingle{}primary\textquotesingle{}}\NormalTok{)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"Internet not available"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{description}
 \item[\textbf{Parameters}]
 \begin{itemize}
@@ -780,20 +749,9 @@ Connection available on: http://www.google.com/
 There are two ways to provide these parameters.
 
 \begin{itemize}
+\tightlist
 \item
-  One is to hard-code them in the script as shown below:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ net\_available:}
-\NormalTok{  client }\OperatorTok{=}\NormalTok{ Client(url}\OperatorTok{=}\StringTok{"90{-}12{-}34{-}26"}\NormalTok{, }
-\NormalTok{  api\_user}\OperatorTok{=}\StringTok{\textquotesingle{}JohnDoes\textquotesingle{}}\NormalTok{, }
-\NormalTok{  api\_password}\OperatorTok{=}\StringTok{\textquotesingle{}Supersecret\textquotesingle{}}\NormalTok{, }
-\NormalTok{  workspace}\OperatorTok{=}\StringTok{\textquotesingle{}primary\textquotesingle{}}\NormalTok{)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"Internet not available"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+  One is to hard-code them in the script.
 \end{itemize}
 
 This method is insecure for handling sensitive data. If you push this
@@ -817,67 +775,9 @@ secure and out of reach of unauthorized individuals.
   store settings in a simple key-value format. They allow for comments
   and enable dividing the configuration into sections.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Initialize the parser}
-\NormalTok{config }\OperatorTok{=}\NormalTok{ configparser.ConfigParser()}
-
-\ControlFlowTok{if} \KeywordTok{not}\NormalTok{ os.path.exists(}\StringTok{\textquotesingle{}config.ini\textquotesingle{}}\NormalTok{):}
-
-   \CommentTok{\# Add sections and set values for Survey Solutions}
-\NormalTok{    config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{\textquotesingle{}url\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}api\_user\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}api\_password\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}workspace\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}quiz\_id\textquotesingle{}}\NormalTok{: }\VariableTok{None}
-
-\NormalTok{    \}}
-
-  \CommentTok{\# Add the email address and password}
-\NormalTok{    config[}\StringTok{\textquotesingle{}email\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{\textquotesingle{}email\_address\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}pass\_word\textquotesingle{}}\NormalTok{:}\VariableTok{None}
-\NormalTok{    \}}
-
-  \CommentTok{\# Add the email address and password}
-\NormalTok{    config[}\StringTok{\textquotesingle{}mysql\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{\textquotesingle{}host\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}database\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}user\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}password\textquotesingle{}}\NormalTok{: }\VariableTok{None}
-\NormalTok{    \}}
-
-\ControlFlowTok{else}\NormalTok{:}
-\NormalTok{  config.read(}\StringTok{\textquotesingle{}config.ini\textquotesingle{}}\NormalTok{)}
-
-\CommentTok{\# Retrieve the details }
-
-\NormalTok{url\_ss }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}url\textquotesingle{}}\NormalTok{]}
-\NormalTok{apiuser }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}api\_user\textquotesingle{}}\NormalTok{]}
-\NormalTok{passwd }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}api\_password\textquotesingle{}}\NormalTok{]}
-\NormalTok{wkspace }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}workspace\textquotesingle{}}\NormalTok{]}
-\NormalTok{quizid }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}quiz\_id\textquotesingle{}}\NormalTok{]}
-
-\CommentTok{\# Access credentials}
-
-\ControlFlowTok{if}\NormalTok{ net\_available:}
-  \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{    client }\OperatorTok{=}\NormalTok{ Client(url}\OperatorTok{=}\NormalTok{url\_ss,}
-\NormalTok{    api\_user }\OperatorTok{=}\NormalTok{ apiuser, }
-\NormalTok{    api\_password}\OperatorTok{=}\NormalTok{passwd,}
-\NormalTok{    workspace}\OperatorTok{=}\NormalTok{wkspace)}
-  \ControlFlowTok{except}\NormalTok{:}
-\NormalTok{    client}\OperatorTok{=}\VariableTok{None}
-\ControlFlowTok{else}\NormalTok{:}
-\NormalTok{  client}\OperatorTok{=}\VariableTok{None}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"Internet not available"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+  To prevent sensitive data from being exposed, follow these security
+  practices:
 \end{itemize}
-
-To prevent sensitive data from being exposed, follow these security
-practices:
 
 \begin{itemize}
 \item
@@ -887,27 +787,6 @@ practices:
   \textbf{Restrict File Permissions:} Limit who can read the config file
   by changing its permissions so only authorized users can access it.
 \end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ client:}
-  \ControlFlowTok{try}\NormalTok{:}
-    \ControlFlowTok{for}\NormalTok{ q }\KeywordTok{in}\NormalTok{ QuestionnairesApi(client).get\_list(questionnaire\_id}\OperatorTok{=}\NormalTok{quizid):}
-      \BuiltInTok{print}\NormalTok{(q.title, q.version)}
-  \ControlFlowTok{except}\NormalTok{:}
-    \BuiltInTok{print}\NormalTok{(}\StringTok{"Unable to connect to server"}\NormalTok{)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"Unable to connect to the server"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-Survey Solutions Training 1
-\end{verbatim}
-
-By this time you will get the questionnaire titles and versions. If not,
-you may need to check that you have keyed in the correct credentials and
-also got the questionnaire id, work space right.
 
 \subsection{Export Data}\label{export-data}
 
@@ -955,46 +834,181 @@ Below are steps to access your questionnaire id:
 Between the \textbf{\emph{Details/}} and \textbf{\emph{\$}} sign is the
 id.
 
-\textbf{Accessing Questionnaire Id Using API}
+\section{Download Script}\label{download-script}
+
+The complete script to download data is given below:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ client:}
-  \ControlFlowTok{for}\NormalTok{ q }\KeywordTok{in}\NormalTok{ QuestionnairesApi(client).get\_list():}
-      \BuiltInTok{print}\NormalTok{(q)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"You did not connect to the server"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{\# Purpose: Download the trial dataset from the Survey Solutions server}
+\CommentTok{\# Author: Moses Otieno}
+\CommentTok{\# Date Created: 14 Oct 2024}
+\CommentTok{\# Date Modified: 14 Oct 2024}
 
-\begin{verbatim}
-Questionnaire(id=f144e3a11dfc4e54a7fd28716d3a32e0$1, questionnaire_id=f144e3a11dfc4e54a7fd28716d3a32e0, version=1, title=Malaria Survey Test, variable=mal_survey)
-Questionnaire(id=9e4277f647394c479cd29469724f9d80$1, questionnaire_id=9e4277f647394c479cd29469724f9d80, version=1, title=Survey Solutions Training, variable=ssolutions_training)
-\end{verbatim}
+\CommentTok{\# {-}{-}{-}{-}{-} Modules required}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\ControlFlowTok{if}\NormalTok{ client:}
-  \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{    export\_object }\OperatorTok{=}\NormalTok{ models.ExportJob(quizid,export\_type}\OperatorTok{=}\StringTok{\textquotesingle{}STATA\textquotesingle{}}\NormalTok{)}
-  
-\NormalTok{    ExportApi(client).start(export\_object, wait}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\ImportTok{import}\NormalTok{ requests}
+\ImportTok{from}\NormalTok{ ssaw }\ImportTok{import}\NormalTok{ Client, ExportApi, QuestionnairesApi}
+\ImportTok{from}\NormalTok{ ssaw }\ImportTok{import}\NormalTok{ models}
+\ImportTok{from}\NormalTok{ time }\ImportTok{import}\NormalTok{ sleep}
+\ImportTok{import}\NormalTok{ configparser}
+
+
+\CommentTok{\# {-}{-}{-}{-} Read and get config values }
+
+\NormalTok{config }\OperatorTok{=}\NormalTok{ configparser.ConfigParser()}
+\NormalTok{config.read(}\StringTok{\textquotesingle{}config.ini\textquotesingle{}}\NormalTok{)}
+
+\NormalTok{urls }\OperatorTok{=}\NormalTok{ [config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}url\textquotesingle{}}\NormalTok{]]}
+
+\NormalTok{survey\_test\_id }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}survey\_test\_id\textquotesingle{}}\NormalTok{]}
+\NormalTok{mal\_id }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}mal\_id\textquotesingle{}}\NormalTok{]}
+
+\CommentTok{\# {-}{-}{-}{-} Specify the questionnaires to download data from }
+
+\NormalTok{questionnaires }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{"survey\_test"}\NormalTok{: survey\_test\_id,}
+    \StringTok{"malaria"}\NormalTok{: mal\_id}
+\NormalTok{\}}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-} Define functions}
+
+\KeywordTok{def}\NormalTok{ connect\_to\_internet(url}\OperatorTok{=}\StringTok{\textquotesingle{}http://www.google.com/\textquotesingle{}}\NormalTok{, timeout}\OperatorTok{=}\DecValTok{5}\NormalTok{):}
+    \CommentTok{"""Check internet connectivity by pinging the given URL."""}
+    \ControlFlowTok{try}\NormalTok{:}
+\NormalTok{        \_ }\OperatorTok{=}\NormalTok{ requests.head(url, timeout}\OperatorTok{=}\NormalTok{timeout)}
+        \ControlFlowTok{return} \VariableTok{True}
+    \ControlFlowTok{except}\NormalTok{ requests.}\PreprocessorTok{ConnectionError}\NormalTok{:}
+        \ControlFlowTok{return} \VariableTok{False}
+
+
+\KeywordTok{def}\NormalTok{ connect\_to\_server():}
+    \CommentTok{"""Attempt to connect to the Survey Solutions server via available URLs."""}
+    \ControlFlowTok{for}\NormalTok{ url }\KeywordTok{in}\NormalTok{ urls:}
+        \ControlFlowTok{if}\NormalTok{ connect\_to\_internet(url):}
+            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}Connected to server: }\SpecialCharTok{\{}\NormalTok{url}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+            \ControlFlowTok{return}\NormalTok{ url}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"No connection to any server."}\NormalTok{)}
+    \ControlFlowTok{return} \VariableTok{None}
+
+
+\KeywordTok{def}\NormalTok{ get\_questionnaire\_versions(client, questionnaire\_id):}
+    \CommentTok{"""Retrieve all versions of a questionnaire."""}
+    \ControlFlowTok{return}\NormalTok{ [(q.}\BuiltInTok{id}\NormalTok{, q.version) }\ControlFlowTok{for}\NormalTok{ q }\KeywordTok{in}\NormalTok{ QuestionnairesApi(client).get\_list(questionnaire\_id}\OperatorTok{=}\NormalTok{questionnaire\_id)]}
+
+
+\KeywordTok{def}\NormalTok{ download\_questionnaire\_data(client, qid, version, export\_path}\OperatorTok{=}\StringTok{\textquotesingle{}data\textquotesingle{}}\NormalTok{):}
+    \CommentTok{"""Export and download questionnaire data in STATA format."""}
+    \ControlFlowTok{try}\NormalTok{:}
+\NormalTok{        export\_object }\OperatorTok{=}\NormalTok{ models.ExportJob(qid, export\_type}\OperatorTok{=}\StringTok{\textquotesingle{}STATA\textquotesingle{}}\NormalTok{)}
+\NormalTok{        ExportApi(client).start(export\_object, wait}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\NormalTok{        ExportApi(client, workspace}\OperatorTok{=}\StringTok{"susoltest"}\NormalTok{).get(questionnaire\_identity}\OperatorTok{=}\NormalTok{qid, export\_type}\OperatorTok{=}\StringTok{\textquotesingle{}STATA\textquotesingle{}}\NormalTok{, show\_progress}\OperatorTok{=}\VariableTok{True}\NormalTok{, generate}\OperatorTok{=}\VariableTok{True}\NormalTok{, export\_path}\OperatorTok{=}\NormalTok{export\_path)}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}Successfully downloaded version: }\SpecialCharTok{\{}\NormalTok{version}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+    \ControlFlowTok{except} \PreprocessorTok{Exception} \ImportTok{as}\NormalTok{ e:}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}Failed to download version: }\SpecialCharTok{\{}\NormalTok{version}\SpecialCharTok{\}}\SpecialStringTok{. Error: }\SpecialCharTok{\{}\NormalTok{e}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
+
+
+\KeywordTok{def}\NormalTok{ download\_all\_versions(client, qnrids, qnrversions):}
+    \CommentTok{"""Loop through all versions of a questionnaire and download data."""}
+    \ControlFlowTok{for}\NormalTok{ qnrid, version }\KeywordTok{in} \BuiltInTok{zip}\NormalTok{(qnrids, qnrversions):}
+\NormalTok{        download\_questionnaire\_data(client, qnrid, version)}
+
+
+\CommentTok{\# {-}{-}{-}{-}{-} Main execution logic}
+\KeywordTok{def}\NormalTok{ main():}
+    \CommentTok{\# Connect to the server and check internet connectivity}
+\NormalTok{    server\_url }\OperatorTok{=} \VariableTok{None}
+    \ControlFlowTok{for}\NormalTok{ attempt }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{):}
+        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}Attempt }\SpecialCharTok{\{}\NormalTok{attempt}\SpecialCharTok{\}}\SpecialStringTok{ to connect...\textquotesingle{}}\NormalTok{)}
+\NormalTok{        server\_url }\OperatorTok{=}\NormalTok{ connect\_to\_server()}
+        \ControlFlowTok{if}\NormalTok{ server\_url:}
+            \ControlFlowTok{break}
+\NormalTok{        sleep(}\DecValTok{5}\NormalTok{)}
+    \ControlFlowTok{if} \KeywordTok{not}\NormalTok{ server\_url:}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"Failed to connect after 10 attempts."}\NormalTok{)}
+        \ControlFlowTok{return}
+
     
-\NormalTok{    ExportApi(client, workspace}\OperatorTok{=}\NormalTok{wkspace).get(questionnaire\_identity}\OperatorTok{=}\NormalTok{quizid,}
-\NormalTok{                          export\_type}\OperatorTok{=}\StringTok{\textquotesingle{}STATA\textquotesingle{}}\NormalTok{,}
-\NormalTok{                          show\_progress}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
-\NormalTok{                          generate}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
-\NormalTok{                          export\_path}\OperatorTok{=}\StringTok{\textquotesingle{}data/rawdata\textquotesingle{}}\NormalTok{)}
-  \ControlFlowTok{except}\NormalTok{:}
-    \BuiltInTok{print}\NormalTok{(}\StringTok{"Unable to connect to the server"}\NormalTok{)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"You did not connect to server"}\NormalTok{)}
+
+    \CommentTok{\# Retrieve necessary configuration details}
+\NormalTok{    api\_user }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}api\_user\textquotesingle{}}\NormalTok{]}
+\NormalTok{    passwd }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}api\_password\textquotesingle{}}\NormalTok{]}
+\NormalTok{    wkspace }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}workspace\textquotesingle{}}\NormalTok{]}
+\NormalTok{    quizid }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}quiz\_id\textquotesingle{}}\NormalTok{]}
+
+   \CommentTok{\# Initialize the Survey Solutions client}
+   
+\NormalTok{    client }\OperatorTok{=}\NormalTok{ Client(url}\OperatorTok{=}\NormalTok{server\_url, api\_user}\OperatorTok{=}\NormalTok{api\_user, api\_password}\OperatorTok{=}\NormalTok{passwd, workspace}\OperatorTok{=}\NormalTok{wkspace)}
+
+    \CommentTok{\# Process each questionnaire}
+    
+    \ControlFlowTok{for}\NormalTok{ quizname, quizid }\KeywordTok{in}\NormalTok{ questionnaires.items():}
+\NormalTok{        qnr\_data }\OperatorTok{=}\NormalTok{ get\_questionnaire\_versions(client, quizid)}
+        \ControlFlowTok{if}\NormalTok{ qnr\_data:}
+\NormalTok{            qnrids, qnrversions }\OperatorTok{=} \BuiltInTok{zip}\NormalTok{(}\OperatorTok{*}\NormalTok{qnr\_data)}
+            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}The highest version of }\SpecialCharTok{\{}\NormalTok{quizname}\SpecialCharTok{\}}\SpecialStringTok{ is }\SpecialCharTok{\{}\BuiltInTok{max}\NormalTok{(qnrversions)}\SpecialCharTok{\}}\SpecialStringTok{. Downloading versions from }\SpecialCharTok{\{}\BuiltInTok{min}\NormalTok{(qnrversions)}\SpecialCharTok{\}}\SpecialStringTok{ to }\SpecialCharTok{\{}\BuiltInTok{max}\NormalTok{(qnrversions)}\SpecialCharTok{\}}\SpecialStringTok{.\textquotesingle{}}\NormalTok{)}
+\NormalTok{            download\_all\_versions(client, qnrids, qnrversions)}
+        \ControlFlowTok{else}\NormalTok{:}
+            \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}No versions found for }\SpecialCharTok{\{}\NormalTok{quizname}\SpecialCharTok{\}}\SpecialStringTok{.\textquotesingle{}}\NormalTok{)}
+
+\ControlFlowTok{if} \VariableTok{\_\_name\_\_} \OperatorTok{==} \StringTok{"\_\_main\_\_"}\NormalTok{:}
+\NormalTok{    main()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-Unable to connect to the server
-\end{verbatim}
+\subsection{Customizing Download
+Script}\label{customizing-download-script}
+
+I\textquotesingle ve done my best to make things easy for you. However,
+you need to provide specific details in the script to download your
+data:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{config.ini}: Create a \texttt{config.ini} file with a section
+  called \textbf{susol}. Include the required details:
+  \texttt{api\ user}, \texttt{api\ password}, \texttt{url}, and
+  \texttt{workspace}.
+\item
+  \textbf{Questionnaire}: Identify the IDs of the questionnaires you
+  want to download and add them to the config file.
+\item
+  \textbf{export\_path}: Specify the download directory for the data.
+  The script assumes there\textquotesingle s a \textbf{data} directory
+  in the same path; if not, create one or specify your desired
+  directory.
+\end{enumerate}
+
+Once you have this information, you\textquotesingle ll be able to
+download your data.
+
+\subsection{Error Handling and
+Debugging}\label{error-handling-and-debugging}
+
+\begin{itemize}
+\item
+  If the script fails to connect, check your internet connection and the
+  details in \texttt{config.ini}.
+\item
+  If you receive an ``Invalid Questionnaire ID'' error, verify that the
+  IDs in the \texttt{questionnaires} dictionary are correct.
+\item
+  Monitor the output messages for any errors during the download
+  process.
+\end{itemize}
+
+\subsection{Convention: Assigning One Workspace to One
+Directory}\label{convention-assigning-one-workspace-to-one-directory}
+
+In many data management and programming workflows, particularly when
+dealing with multiple datasets, scripts, and configurations,
+establishing a clear and consistent directory structure is essential for
+maintaining organization and efficiency. I strongly advocate for the
+convention of assigning one workspace to one directory. A workspace can
+contain multiple questionnaires, so this script assumes that you will
+work with each workspace separately.
 
 \section{Summary}\label{summary}
 
@@ -1005,9 +1019,6 @@ download data from Survey Solutions server to your machine.
 \tightlist
 \item
   \textbf{Create API User}: Ensure you have an API user created.
-\end{itemize}
-
-\begin{itemize}
 \item
   \textbf{Gather Information}: Collect the following:
 
@@ -1033,128 +1044,31 @@ download data from Survey Solutions server to your machine.
   \textbf{Run the Script}: Execute the script to download the data!
 \end{itemize}
 
-\section{Download Script}\label{download-script}
-
-The complete script to download data is given below:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# {-}{-}{-}{-}{-} Modules required}
-
-\ImportTok{import}\NormalTok{ requests}
-\ImportTok{from}\NormalTok{ ssaw }\ImportTok{import}\NormalTok{ Client, ExportApi, QuestionnairesApi, models}
-\ImportTok{from}\NormalTok{ time }\ImportTok{import}\NormalTok{ sleep}
-\ImportTok{import}\NormalTok{ configparser}
-\ImportTok{import}\NormalTok{ os}
-
-\CommentTok{\# {-}{-}{-}{-} Define functions}
-
-\KeywordTok{def}\NormalTok{ check\_net(url}\OperatorTok{=}\StringTok{\textquotesingle{}http://www.google.com/\textquotesingle{}}\NormalTok{, timeout}\OperatorTok{=}\DecValTok{5}\NormalTok{):}
-    \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{        \_ }\OperatorTok{=}\NormalTok{ requests.head(url, timeout}\OperatorTok{=}\NormalTok{timeout)}
-        \BuiltInTok{print}\NormalTok{(}\SpecialStringTok{f\textquotesingle{}Connection available on: }\SpecialCharTok{\{}\NormalTok{url}\SpecialCharTok{\}}\SpecialStringTok{\textquotesingle{}}\NormalTok{)}
-        \ControlFlowTok{return} \VariableTok{True}
-    \ControlFlowTok{except}\NormalTok{ requests.}\PreprocessorTok{ConnectionError}\NormalTok{:}
-        \ControlFlowTok{return} \VariableTok{False}
-    
-\CommentTok{\# {-}{-}{-}{-} Create configuration if not there or load }
-
-\NormalTok{config }\OperatorTok{=}\NormalTok{ configparser.ConfigParser()}
-
-\ControlFlowTok{if} \KeywordTok{not}\NormalTok{ os.path.exists(}\StringTok{\textquotesingle{}config.ini\textquotesingle{}}\NormalTok{):}
-  
-   \CommentTok{\# Add sections and set values for Survey Solutions}
-\NormalTok{    config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{\textquotesingle{}url\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}api\_user\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}api\_password\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}workspace\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}quiz\_id\textquotesingle{}}\NormalTok{: }\VariableTok{None}
-          
-\NormalTok{    \}}
-    
-  \CommentTok{\# Add the email address and password}
-\NormalTok{    config[}\StringTok{\textquotesingle{}email\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{\textquotesingle{}email\_address\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}pass\_word\textquotesingle{}}\NormalTok{:}\VariableTok{None}
-\NormalTok{    \}}
-    
-  \CommentTok{\# Add the email address and password}
-\NormalTok{    config[}\StringTok{\textquotesingle{}mysql\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ \{}
-        \StringTok{\textquotesingle{}host\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}database\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}user\textquotesingle{}}\NormalTok{: }\VariableTok{None}\NormalTok{,}
-        \StringTok{\textquotesingle{}password\textquotesingle{}}\NormalTok{: }\VariableTok{None}
-\NormalTok{    \}}
-  
-\ControlFlowTok{else}\NormalTok{:}
-  \CommentTok{\# Read the config file}
-\NormalTok{  config.read(}\StringTok{\textquotesingle{}config.ini\textquotesingle{}}\NormalTok{)}
-  
-  
-\CommentTok{\# {-}{-}{-}{-} Retrieve all the necessary information}
-
-\NormalTok{url\_ss }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}url\textquotesingle{}}\NormalTok{]}
-\NormalTok{apiuser }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}api\_user\textquotesingle{}}\NormalTok{]}
-\NormalTok{passwd }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}api\_password\textquotesingle{}}\NormalTok{]}
-\NormalTok{wkspace }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}workspace\textquotesingle{}}\NormalTok{]}
-\NormalTok{quizid }\OperatorTok{=}\NormalTok{ config[}\StringTok{\textquotesingle{}susol\textquotesingle{}}\NormalTok{][}\StringTok{\textquotesingle{}quiz\_id\textquotesingle{}}\NormalTok{]}
-
-
-\CommentTok{\# {-}{-}{-}{-} Check whether there is internet connectivity then instantiate Client class}
-
-\NormalTok{net\_available }\OperatorTok{=}\NormalTok{ check\_net()}
-
-
-\ControlFlowTok{if}\NormalTok{ net\_available:}
-  \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{    client }\OperatorTok{=}\NormalTok{ Client(url}\OperatorTok{=}\NormalTok{url\_ss,}
-\NormalTok{    api\_user }\OperatorTok{=}\NormalTok{ apiuser, }
-\NormalTok{    api\_password}\OperatorTok{=}\NormalTok{passwd,}
-\NormalTok{    workspace}\OperatorTok{=}\NormalTok{wkspace)}
-  \ControlFlowTok{except}\NormalTok{:}
-\NormalTok{    client}\OperatorTok{=}\VariableTok{None}
-\ControlFlowTok{else}\NormalTok{:}
-\NormalTok{  client}\OperatorTok{=}\VariableTok{None}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"Internet not available"}\NormalTok{)}
-  
-  
-\CommentTok{\# {-}{-}{-}{-} Check whether you are able to communicate with the server}
-
-\ControlFlowTok{if}\NormalTok{ client:}
-  \ControlFlowTok{try}\NormalTok{:}
-    \ControlFlowTok{for}\NormalTok{ q }\KeywordTok{in}\NormalTok{ QuestionnairesApi(client).get\_list(questionnaire\_id}\OperatorTok{=}\NormalTok{quizid):}
-      \BuiltInTok{print}\NormalTok{(}\StringTok{"Success! You have connected successfully to the server!"}\NormalTok{)}
-      \BuiltInTok{print}\NormalTok{(q.title, q.version)}
-  \ControlFlowTok{except}\NormalTok{:}
-    \BuiltInTok{print}\NormalTok{(}\StringTok{"Unable to connect to server"}\NormalTok{)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"Configurations need to be checked!"}\NormalTok{)}
-  
-
-\CommentTok{\# {-}{-}{-}{-} Export Data and Download}
-
-\ControlFlowTok{if}\NormalTok{ client:}
-  \ControlFlowTok{try}\NormalTok{:}
-\NormalTok{    export\_object }\OperatorTok{=}\NormalTok{ models.ExportJob(quizid,export\_type}\OperatorTok{=}\StringTok{\textquotesingle{}STATA\textquotesingle{}}\NormalTok{)}
-  
-\NormalTok{    ExportApi(client).start(export\_object, wait}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
-    
-\NormalTok{    ExportApi(client, workspace}\OperatorTok{=}\NormalTok{wkspace).get(questionnaire\_identity}\OperatorTok{=}\NormalTok{quizid,}
-\NormalTok{                          export\_type}\OperatorTok{=}\StringTok{\textquotesingle{}STATA\textquotesingle{}}\NormalTok{,}
-\NormalTok{                          show\_progress}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
-\NormalTok{                          generate}\OperatorTok{=}\VariableTok{True}\NormalTok{,}
-\NormalTok{                          export\_path}\OperatorTok{=}\StringTok{\textquotesingle{}data/rawdata\textquotesingle{}}\NormalTok{)}
-  \ControlFlowTok{except}\NormalTok{:}
-    \BuiltInTok{print}\NormalTok{(}\StringTok{"Unable to create export object"}\NormalTok{)}
-\ControlFlowTok{else}\NormalTok{:}
-  \BuiltInTok{print}\NormalTok{(}\StringTok{"You did not connect to server"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \bookmarksetup{startatroot}
 
 \chapter{Data Import}\label{data-import}
+
+\section{Introduction}\label{introduction-2}
+
+After downloading the data, the next step is to import it into your
+programming environment for analysis. This section on data import is
+essential because Survey Solutions stores the downloaded data in a
+specific format. In our download script, we specified
+\texttt{export\_type=\textquotesingle{}STATA\textquotesingle{}}, which I
+prefer because STATA files include both variable labels and value
+labels, eliminating the need to redefine them. Additionally, note that
+the downloaded data is in a zipped format. If you have two versions of a
+questionnaire, you'll receive two separate zipped files. There are two
+ways you can import this data into R:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Manual Import}: undefined
+\item
+  \textbf{Automated Import}: Use a script to handle all the importing
+  procedures, streamlining the process.
+\end{enumerate}
 
 \bookmarksetup{startatroot}
 

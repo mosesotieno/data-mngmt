@@ -100,7 +100,19 @@ This process involves transforming data from one type to another, such as conver
 sstraining_main <- sstraining_main |> 
   mutate(across(where(is.labelled), as_factor))
 
-write_rds(sstraining_main, "data/sstraining_main_clean.rds")
+
 ```
 
 I usually convert labeled types to factors which are useful in further analysis.
+
+### Labeling Variables
+
+One of the significant advantages of using **Survey Solutions** is the ability to label variables at the time of questionnaire design. This feature ensures that each variable in your survey is clearly identified with a meaningful label, which simplifies data management and analysis later on.
+
+However you may want to manually label the variables.
+
+```{r}
+attr(sstraining_main[['qa03']], 'label') <- "Pay non-family members to work on your fields"
+
+write_rds(sstraining_main, "data/sstraining_main_clean.rds")
+```
