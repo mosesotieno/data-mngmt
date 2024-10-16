@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The ultimate objective of any data preprocessing effort is to generate useful output. Whether it's calculating summary statistics of key variables, tracking data collection progress, building dashboards with actionable insights, developing complex models, or creating other data products, reporting is essential to communicate findings effectively.
+The ultimate objective of any data preprocessing effort is to generate useful data output. Whether it's calculating summary statistics of key variables, tracking data collection progress, building dashboards with actionable insights, developing complex models, or creating other data products, reporting is essential to communicate findings effectively.
 
 Generating real-time progress reports during data collection is especially important. This allows you to catch potential issues early on, such as:
 
@@ -14,10 +14,10 @@ Generating real-time progress reports during data collection is especially impor
 
 These insights enable immediate corrective actions, ensuring data integrity throughout the collection process.
 
-The great news is that report generation can be integrated seamlessly into your data management pipeline! Additionaly, before diving into serious analysis, it's crucial to perform Exploratory Data Analysis (EDA) to thoroughly check your data. EDA helps you understand the structure, detect anomalies, and identify patterns that could impact your analysis. It ensures that your dataset is clean, reliable, and ready for deeper insights. I will provide a very basic EDA on our dataset.
+The great news is that report generation can be integrated seamlessly into your data management pipeline! Additionally, before diving into serious analysis, it's crucial to perform Exploratory Data Analysis (EDA) to thoroughly check your data. EDA helps you understand the structure, detect anomalies, and identify patterns that could impact your analysis. It ensures that your dataset is clean, reliable, and ready for deeper insights. I will provide a very basic EDA on our dataset.
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, ft.align = "left")
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, ft.align = "left")
 options(gtsummary.tbl_summary.percent_fun = 
           function(x) sprintf(x * 100, fmt='%#.1f'))
 ```
@@ -37,7 +37,7 @@ sstraining_main <- read_rds("data/sstraining_main_clean.rds")
 members <- read_rds("data/membre.rds")
 ```
 
-So far we have visited `r nrow(sstraining_main)` households and managed to interview `r nrow(sstraining_main)` Below is a summary of household information:
+So far we have visited `r nrow(sstraining_main)` households and captured information on `r nrow(members)` members of the households. Below is a summary of household information:
 
 ### Household Information
 
@@ -45,7 +45,6 @@ The variables here start with *qs* or *qm*
 
 ```{r}
 
-#| eval:false
 sstraining_main |> 
   select(starts_with(c("qs", "qm"))) |> 
   select(where(is.factor) | where(is.factor)) |> 
@@ -71,7 +70,6 @@ The variables here start with *qa* and *qd.*
 
 ```{r}
 
-#| eval:false
 sstraining_main |> 
   select(starts_with(c("qa", "qd"))) |> 
   select(where(is.factor) | where(is.factor)) |> 

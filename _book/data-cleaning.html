@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -190,6 +209,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Batch Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -217,6 +242,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#type-casting" id="toc-type-casting" class="nav-link" data-scroll-target="#type-casting"><span class="header-section-number">4.2.4</span> Type Casting</a></li>
   <li><a href="#labeling-variables" id="toc-labeling-variables" class="nav-link" data-scroll-target="#labeling-variables"><span class="header-section-number">4.2.5</span> Labeling Variables</a></li>
   </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">4.3</span> Summary</a></li>
   </ul>
 </nav>
     </div>
@@ -360,9 +386,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(sstraining_main, <span class="st">"data/sstraining_main_clean.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-
-
 </section>
+</section>
+<section id="summary" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="summary"><span class="header-section-number">4.3</span> Summary</h2>
+<p>Data cleaning is inherently context-specific, meaning there is no universal template that fits all scenarios. To effectively clean your data, it is essential to thoroughly understand the study design, objectives, and other relevant factors. This knowledge allows for a tailored approach that addresses the unique requirements of the dataset and the goals of the analysis.</p>
+<p>To master R, I recommend <strong>R for Data Science</strong><span class="citation" data-cites="wickhamhadley2023"><sup><a href="references.html#ref-wickhamhadley2023" role="doc-biblioref">1</a></sup></span>. This book introduces the tidyverse and focuses on data manipulation, visualization, and analysis through practical examples and exercises. Its clear explanations and structured approach make it suitable for both beginners and those looking to enhance their skills. Whether you’re starting out or aiming to deepen your expertise, this book is a reliable guide for your data science journey</p>
+
+
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-wickhamhadley2023" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Wickham, Hadley, Mine Çetinkaya-Rundel, Garrett Grolemund. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. 2nd ed.; 2023.</div>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

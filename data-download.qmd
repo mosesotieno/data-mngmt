@@ -4,9 +4,9 @@
 
 In the ever-evolving landscape of data collection, [Survey Solutions](https://mysurvey.solutions/en/) stands out as a powerful and versatile tool designed to streamline the process. Developed by the World Bank, this innovative platform enables researchers and organizations to gather high-quality data efficiently and effectively. With its user-friendly interface and robust features, Survey Solutions empowers field staff to conduct surveys, manage complex questionnaires, and ensure data integrity in real-time.
 
-One of the standout capabilities of Survey Solutions is its robust API, which allows for seamless integration with other systems and applications. This feature enables users to automate data collection processes, enhance data management, and facilitate real-time data access, making it easier to incorporate Survey Solutions into existing workflows.
+One of the standout capabilities of Survey Solutions is its robust API, which allows for seamless integration with other systems and applications. This feature enables users to automate data extraction processes, enhance data management, and facilitate real-time query generation and resolution, making it easier to incorporate Survey Solutions into existing workflows.
 
-By harnessing the capabilities of Survey Solutions, users can customize surveys to meet specific research needs, collect data through mobile devices, and utilize advanced tools for monitoring and data analysis. This flexibility not only enhances the quality of data collected but also accelerates decision-making processes in various sectors, including healthcare, education, and social research.
+By harnessing the capabilities of Survey Solutions, users can customize surveys to meet specific research needs, collect data through mobile devices, and utilize advanced tools for monitoring and data management. This flexibility not only enhances the quality of data collected but also accelerates decision-making processes in various sectors, including healthcare, education, and social research.
 
 Whether you're a seasoned researcher or a novice data collector, Survey Solutions provides the resources and support necessary to transform data collection into a seamless and impactful experience. Embrace the future of data gathering with Survey Solutions---where precision meets efficiency.
 
@@ -82,8 +82,6 @@ In Survey Solutions, there are **six** main types of user accounts, each with di
 
     -   Generate reports and monitor survey performance.
 
-    -   Cannot edit or approve interviews.
-
 6.  **API User**:
 
 -   **Role**: Provides programmatic access to Survey Solutions through its API for automation and integration purposes.
@@ -112,7 +110,7 @@ Some examples of use could be:
 
 -   an integrated system, which utilizes Survey Solutions for data collections tasks and a statistical package for continuous analysis,
 
--   facility management, inventory and price monitoring systems, etc, etc.
+-   facility management, inventory and price monitoring systems.
 
 For the purposes of this tutorial, our focus will be on the first use case.
 
@@ -130,7 +128,7 @@ There are a number of API clients for Survey Solutions. They are listed below.
 | R package         | Lena Nguyen     | SuSoAPI               | R          |
 | Stata package     | Sergiy Radyakin | susoapi               | Stata      |
 
-For more details about each of the clients you check [here](https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/).
+For more details about each of the clients, check [here](https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/).
 
 ## Python Package
 
@@ -161,14 +159,6 @@ import os
 
 To communicate with Survey Solutions server, you first need to instantiate a client. You remember the API user you created or was created for you? It is necessary at this point. To connect to Survey Solution you need four pieces of information i.e.
 
--   URL for the server
-
--   API username
-
--   API password
-
--   Name of the work space
-
 **Parameters**
 
 :   -   **url** (**`str`**) -- URL of the headquarters app
@@ -177,27 +167,22 @@ To communicate with Survey Solutions server, you first need to instantiate a cli
 
     -   **api_password** (**`Optional`**\[**`str`**\]) -- API user password
 
-    -   **token** (**`Optional`**\[**`str`**\]) -- Authorization token
-
-    -   **workspace** (**`str`**) -- Name of the workspace. If None, "primary" will be assumed
+    -   **workspace** (**`str`**) -- Name of the workspace.
 
 There are two ways to provide these parameters.
 
--   One is to hard-code them in the script.
+1.  One is to **hard-code** them in the script.
 
 This method is insecure for handling sensitive data. If you push this script to a public repository, anyone can access these details. Best practices in data management require keeping sensitive information secure and out of reach of unauthorized individuals.
 
--   Using config files
+2.  Using **config** files
 
     A more secure way to handle sensitive data is by using configuration files. Instead of hard-coding credentials directly in the script, you can store them in a separate config file and load them securely. There are several common formats for configuration files such as **.ini** files (Initialization files), **.json** files (JavaScript Object Notation), **.yam**l files (YAML Aint Markup Language), **.properties** files (Java-style-value pair format). I decided to use **.ini** because they are lightweight and easy-to-use configuration files that provide a straightforward way to store settings in a simple key-value format. They allow for comments and enable dividing the configuration into sections.
 
     To prevent sensitive data from being exposed, follow these security practices:
 
-<!-- -->
-
--   **Add Config File to .gitignore:** Ensure the config file is not included in version control (e.g., GitHub) by adding it to .gitignore.
-
--   **Restrict File Permissions:** Limit who can read the config file by changing its permissions so only authorized users can access it.
+    -   **Add Config File to .gitignore:** Ensure the config file is not included in version control (e.g., GitHub) by adding it to .gitignore.
+    -   **Restrict File Permissions:** Limit who can read the config file by changing its permissions so only authorized users can access it.
 
 ### Export Data
 
@@ -329,7 +314,7 @@ def main():
     api_user = config['susol']['api_user']
     passwd = config['susol']['api_password']
     wkspace = config['susol']['workspace']
-    quizid = config['susol']['quiz_id']
+    quizid = config['susol']['survey_test_id']
 
    # Initialize the Survey Solutions client
    
@@ -354,7 +339,7 @@ if __name__ == "__main__":
 
 ### Customizing Download Script
 
-I've done my best to make things easy for you. However, you need to provide specific details in the script to download your data:
+You need to provide specific details in the script to download your data:
 
 1.  **config.ini**: Create a `config.ini` file with a section called **susol**. Include the required details: `api user`, `api password`, `url`, and `workspace`.
 
@@ -394,3 +379,5 @@ Below is a summary of the steps you need to undertake in order to download data 
 -   **Install `ssaw` Module**: Use Python to install the `ssaw` module.
 -   **Create .ini Config File**: Store all necessary information for the Survey Solutions Server.
 -   **Run the Script**: Execute the script to download the data!
+
+To deepen your understanding in Python, I would recommend Automate the Boring Stuff with Python[@sweigartal2019]. It is a highly praised book that serves as an excellent introduction to programming for beginners, particularly those looking to leverage Python for practical tasks.

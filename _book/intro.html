@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -156,6 +175,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Batch Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -190,11 +215,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This tutorial is about automating data management and report writing. The growing need for timely, accurate, and efficient data processing has made automation not just a luxury but a necessity in modern data management practices. This tutorial will take you on a step-by-step journey to streamline your data management processes by leveraging four powerful tools: Batch scripting, Python, SQL, and R.</p>
+<p>Data management involves a series of meticulous practices that ensure data is well-organized, easily accessible, understandable, and preserved over time<span class="citation" data-cites="briney"><sup><a href="references.html#ref-briney" role="doc-biblioref">1</a></sup></span>. Effective data management reduces the risk of losing valuable information and increases its usability during and after the completion of a project. By adopting these small practices, researchers and professionals safeguard one of the most crucial outputs of the research process—<strong>the data itself</strong>. This process can significantly benefit from automation, which minimizes manual tasks, enhances consistency, and saves time, allowing for seamless data handling even long after the project’s end.</p>
+<p>This tutorial is about automating data management and report writing. The growing need for timely, accurate, and efficient data processing has made automation not just a luxury but a necessity in modern day data management practices. This tutorial will take you on a step-by-step journey to streamline your data management processes by leveraging four powerful tools: Batch scripting, Python, SQL, and R.</p>
 <p>Survey Solutions, a widely-used survey data collection platform, offers rich capabilities for collecting complex datasets. However, the true power lies in how quickly and effectively you can automate the retrieval, cleaning, and analysis of this data. This tutorial aims to bridge that gap. Whether you’re managing data for health research, social impact projects, or other sectors, automating the extraction and transformation of data will save hours of manual work and reduce the risk of human error.</p>
-<p>In this tutorial, we will walk you through creating a robust data management pipeline, starting with Python to download data from the Survey Solutions via API. We will then transition to R to perform in-depth data management and generate dynamic reports. After the reports have been generated will get back to Python then share the reports with the stake-holders. We will then use SQL to track the progress of report sharing. Batch scripts will be used in automating all these processes. By the end of this guide, you will have a seamless workflow that not only automates your data processes but also enhances their accuracy and scalability.</p>
+<p>In this tutorial, we will walk you through creating a robust data management pipeline, starting with Python to download data from the Survey Solutions via API. We will then transition to R to perform in-depth data management and generate dynamic reports. After the reports have been generated will get back to Python then share the reports with the stake-holders. We will then use SQL to track the progress of report sharing. Batch scripts will be used in automating all these processes. By the end of this guide, you will have a seamless workflow that not only automates your data processes but also enhances their accuracy, reliability and scalability.</p>
 
 
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-briney" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Briney K. <em>Data Management for Researchers: Organize, Maintain and Share Your Data for Research Success</em>. Pelagic Publishing</div>
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

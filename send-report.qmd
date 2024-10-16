@@ -12,25 +12,33 @@ Google provides a secure way to configure applications with its products by allo
 
     -   Go to your [Google Account.](https://myaccount.google.com/)
 
-    -   Under "Signing in to Google," select **2-Step Verification** and follow the prompts to set it up.
+    -   On the left pane click on [Security](https://myaccount.google.com/security).
 
 2.  **Generate an App Password**:
 
-    -   After enabling 2-Step Verification, return to your Google Account.
+    -   Under How you sign to Google, expand 2-Step Verification
 
-    -   In the **Security** section, expand 2-Step Verification
+    -   Google may need you to provide a password to verify it's you
 
-    -   You may need to sign in again for security purposes.
+    -   Enable 2-Step Verification
 
-    -   In the App passwords section, enter the name of the app; any name (training, python)
+        ![2-Step Verification](images/2-step-security.JPG)
+
+    -   Expand App passwords section (Bottom of the page) by clicking on that arrow
+
+        ![Click on that arrow](images/app-pass-expand.JPG)
+
+    -   Enter the name of the app; any name (training, python)
 
     -   Click **Create**
+
+        ![Enter the name of the app then click Create](images/app-pass-name.JPG)
 
 3.  **Use the App Password**:
 
     -   A 16-character app password will be displayed. Copy this password.
 
-    -   Use this app password in place of your regular Gmail password in the application you are configuring.
+    -   Use this app password in place of your regular Gmail password in the application you are configuring. In our case in Python.
 
 4.  **Save Your App Password**:
 
@@ -120,15 +128,294 @@ Another option is to store the email body in a text file, allowing you to easily
 #| eval: false
 
 with open('message-body.txt') as f:
-  message_send = f.read()
+  email_body = f.read()
   
   
 send_mail(
   send_from = sender,
   subject = "Test Email",
-  text = message_send,
+  text = email_body,
   filess = files_tosend,
   send_to = to_emails) 
+```
+
+## Track The Reports Sent
+
+MySQL is the bedrock for working with relational databases. Create a database and a table where you will be tracking your progress reports. Working the MySQL involves the four steps below:
+
+1.  Get your database connection details
+
+```{python}
+from mysql.connector import MySQLConnection
+import mysql.connector
+from mysql.connector import Error
+from datetime import date
+
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+
+host_name = config['mysql']['host']
+db_user = config['mysql']['user']
+db = config['mysql']['database']
+pass_word = config['mysql']['password']
+
+
+```
+
+2.  Create a database
+
+```{python}
+from mysql.connector import MySQLConnection
+import mysql.connector
+from mysql.connector import Error
+
+def create_db(dname):
+    try:
+        # Establish the connection
+        connection = mysql.connector.connect(
+            host=host_name,  # e.g., 'localhost' or an IP address
+            user=db_user,
+            password=pass_word
+        )
+
+        if connection.is_connected():
+            # Create a cursor object
+            cursor = connection.cursor()
+
+            # SQL statement to create the database
+            sql_create_db = f"CREATE DATABASE IF NOT EXISTS {dname}"
+
+            # Execute the query
+            cursor.execute(sql_create_db)
+            print(f"Database '{dname}' created or already exists.")
+
+            # Commit the transaction
+            connection.commit()
+    
+    except Error as e:
+        print(f"Error: {e}")
+    
+    finally:
+        # Close the cursor and connection
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed.")
+            
+create_db('training')
+```
+
+3.  Create a table
+
+```{python}
+from mysql.connector import MySQLConnection
+import mysql.connector
+from mysql.connector import Error
+
+
+def create_table(table_name="reports_tracking"):
+
+    try:
+      # Establish the connection
+      connection = mysql.connector.connect(
+          host=host_name,
+          user=db_user,
+          password=pass_word,
+          database=db)
+
+      if connection.is_connected():
+          # Create a cursor object
+          cursor = connection.cursor()
+
+          # SQL statement to create the table with the provided table name
+          sql_create_table = f"""
+          CREATE TABLE IF NOT EXISTS {table_name} (
+              id INT AUTO_INCREMENT PRIMARY KEY,
+              entry_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+              study VARCHAR(20)
+          );
+          """
+
+          # Execute the query
+          cursor.execute(sql_create_table)
+          print(f"Table '{table_name}' created or already exists.")
+
+          # Commit the transaction
+          connection.commit()
+  
+    except Error as e:
+        print(f"Error: {e}")
+    
+    finally:
+        # Close the cursor and connection
+        if connection.is_connected():
+          cursor.close()
+          connection.close()
+          print("MySQL connection is closed.")
+
+
+create_table()
+```
+
+4.  Insert data into the table
+
+```{python }
+from mysql.connector import MySQLConnection
+import mysql.connector
+from mysql.connector import Error
+from datetime import date
+
+
+def insert_data(study):
+    c_date = date.today()
+    try:
+        
+        # Establish the connection
+        connection = mysql.connector.connect(
+            host=host_name,  # e.g., 'localhost' or an IP address
+            user=db_user,
+            password=pass_word,
+            database=db)     
+
+        if connection.is_connected():
+                print("Connected to MySQL database")
+
+                # Create a cursor object
+                cursor = connection.cursor()
+
+                # SQL INSERT statement
+                sql_insert_query = """INSERT INTO reports_tracking (entry_date, study)
+                                    VALUES (%s, %s)"""
+                # Values to insert
+                values_to_insert = (c_date, study)
+
+                # Execute the query
+                cursor.execute(sql_insert_query, values_to_insert)
+
+                # Commit the transaction
+                connection.commit()
+                print("Data inserted successfully")
+
+    except Error as e:
+        print(f"Error: {e}")
+    finally:
+
+        # Close the cursor and connection
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+# Call the function to insert data
+insert_data("Training")
+
+
+```
+
+To avoid sending reports multiple times in a day, you can leverage the MySQL databases. First, fetch the data from the MySQL server and check if the report has been updated. If it hasn't been sent that day, proceed to send it. We will update our `send_mail` function to ensure we track our progress reports.
+
+```{python}
+from mysql.connector import MySQLConnection
+import mysql.connector
+from mysql.connector import Error
+from datetime import date
+
+def fetch_data():
+  try:
+        # Establish the connection
+        connection = mysql.connector.connect(
+            host=host_name,  # e.g., 'localhost' or an IP address
+            user=db_user,
+            password=pass_word,
+            database=db)     
+
+        if connection.is_connected():
+          
+                # Create a cursor object
+                cursor = connection.cursor()
+
+                # ---- Pull the entry_date from the database
+
+                cursor.execute("SELECT entry_date FROM reports_tracking")
+                
+                reportcentries = cursor.fetchall()
+                
+                entries = [j.date() for i in reportcentries for j in i]
+                
+                return entries
+
+                # Commit the transaction
+                connection.commit()
+                print("Data inserted successfully")
+
+  except Error as e:
+        print(f"Error: {e}")
+  finally:
+        
+        # Close the cursor and connection
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            
+            
+
+
+```
+
+Update the `send_mail` function
+
+```{python}
+
+def send_mail(send_from: str, subject: str, text: str,
+              send_to: list, filess=None):
+    send_to = sender if not send_to else send_to
+
+    msg = MIMEMultipart()
+    msg['From'] = send_from
+    msg['To'] = ', '.join(send_to)
+    msg['Subject'] = subject
+
+    msg.attach(MIMEText(text))
+
+    for f in filess or []:
+        with open(f, "rb") as fil:
+            ext = f.split('.')[-1:]
+            attachedfile = MIMEApplication(fil.read(), _subtype=ext)
+            attachedfile.add_header(
+                'content-disposition', 'attachment', filename=basename(f))
+        msg.attach(attachedfile)
+    try:
+      server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+      server.login(sender, app_password)
+      server.sendmail(send_from, send_to, msg.as_string())
+      insert_data("Training")
+      print("Email sent successfully!")
+    except smtplib.SMTPException as e:
+      print(f"Failed to send email: {e}")
+    finally:
+      server.quit()
+    
+```
+
+Send updates if not sent
+
+```{python}
+with open('message-body.txt') as f:
+  email_body = f.read()
+  
+entries = fetch_data()
+date_today = date.today()
+
+if date_today not in entries:
+  send_mail(
+    send_from = sender,
+    subject = "Test Email",
+    text = email_body,
+    filess = files_tosend,
+    send_to = to_emails) 
+else:
+  print("You have sent the updates today")
 ```
 
 ## Summary
@@ -138,3 +425,5 @@ Once reports are generated, the next step is ensuring timely distribution to sta
 The script provided sends reports as email attachments. It reads the sender's credentials and recipients' information from a configuration file (`config.ini`). The function `send_mail` handles the email composition and attachments, sending them securely via Gmail's SMTP server. In the event of failure, the script uses a `try-except` block to catch errors and ensures the server connection is closed.
 
 An additional recommendation is to store the email body in a separate text file for easier management, especially when frequently updating the content for various stakeholders. This keeps the script clean and maintainable.
+
+We finalized the script to ensure updates are sent only if they haven't been previously sent.

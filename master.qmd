@@ -2,7 +2,7 @@
 
 ## Introduction
 
-A key way to streamline workflows in data management is by using a master script that runs multiple other scripts. This approach centralizes execution, ensuring consistency and efficiency across tasks. A master script acts as the central hub that coordinates and runs other scripts, automating various tasks and ensuring consistency across processes.
+A key way to streamline workflows in data management is by using a master script that runs other multiple scripts. This approach centralizes execution, ensuring consistency and efficiency across tasks. A master script acts as the central hub that coordinates and runs other scripts, automating various tasks and ensuring consistency across processes.
 
 ## Advantages
 
@@ -10,9 +10,9 @@ A key way to streamline workflows in data management is by using a master script
 
 2.  **Consistency**: Ensures that all tasks are performed in the same sequence and manner each time, minimizing errors.
 
-3.  **Organization**: Keeps your workflow organized by managing dependencies and scheduling the execution of individual scripts.
+3.  **Time saving**: Instead of running each data cleaning script individually, the master script can execute them all at once.
 
-4.  **Flexibility**: You can easily update or modify the workflow by editing the master script without changing individual components.
+4.  **Scalability**: You can increase the number of scripts by adding them to the master script.
 
 By integrating all essential steps into a single execution file, a master script optimizes data management, making the entire process more reliable and seamless.
 

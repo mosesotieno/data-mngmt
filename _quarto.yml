@@ -14,15 +14,18 @@ book:
     - report-generation.qmd
     - master.qmd
     - send-report.qmd
+    - batch.qmd
     - references.qmd
 
 bibliography: references.bib
+csl: american-medical-association.csl
 
 format:
   html:
     theme: cosmo
   pdf:
     documentclass: scrreprt
+
 
 editor: visual
 

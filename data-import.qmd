@@ -2,7 +2,7 @@
 
 ## Introduction
 
-After downloading the data, the next step is to import it into your programming environment for analysis. This section on data import is essential because Survey Solutions stores the downloaded data in a specific format. In our download script, we specified `export_type='STATA'`, which I prefer because STATA files include both variable labels and value labels, eliminating the need to redefine them. Additionally, note that the downloaded data is in a zipped format. If you have two versions of a questionnaire, you'll receive two separate zipped files. There are two ways you can import this data into R:
+After downloading the data, the next step is to import it into your programming environment for management. This section on data import is essential because Survey Solutions stores the downloaded data in a specific format. In our download script, we specified `export_type='STATA'`, which I prefer because STATA files include both variable labels and value labels, eliminating the need to redefine them. Additionally, note that the downloaded data is in a zipped format. If you have two versions of a questionnaire, you'll receive two separate zipped files. There are two ways you can import this data into R:
 
 1.  **Manual Import**: Unzip each folder and then import the individual files into your programming environment.
 
@@ -24,6 +24,8 @@ Using a **script to automate the import process** is generally more efficient th
 
 5.  **Easy Adjustments**: If changes are needed (e.g., modifying file paths or import settings), you can update the script instead of repeating the manual steps.
 
+6.  **Adaptability**: you can use the same script for different projects with minimal changes.
+
 ## Survey Solutions Data Structure
 
 Before diving into data importation, it's crucial to understand the structure of the zipped directory and its contents from Survey Solutions. This knowledge will help you navigate the files efficiently and ensure that you are importing the correct data. The naming convention is ***questionnaire-name_versionnumber_Exporttype_All.zip.*** Example *ssolutions_training_1_STATA_All.zip.*
@@ -34,7 +36,7 @@ The contents include the data and metadata:
 
 ### Metadata Files
 
-These files provide additional context about the data. The include:
+These files provide additional context about the data. They include:
 
 -   assignment_actions
 
@@ -113,7 +115,6 @@ ssolutions_training <- all_ssolutions_training |>
   map(bind_rows, .progress = TRUE) |>  
   list_rbind() 
 
-ssolutions_training
 
 # ---- Save the main questionnaire
 
@@ -148,8 +149,6 @@ for (zipfile in all_zips){
     mutate(quiz_version = qversion)
   
 }
-
-
 
 
 membre <- all_membre |> 
@@ -202,8 +201,6 @@ for (zipfile in all_zips){
 ssolutions_training <- all_ssolutions_training |> 
   map(bind_rows, .progress = TRUE) |>  
   list_rbind() 
-
-ssolutions_training |> select(1, 3:5)
 
 # ---- Save the main questionnaire
 

@@ -116,3 +116,9 @@ attr(sstraining_main[['qa03']], 'label') <- "Pay non-family members to work on y
 
 write_rds(sstraining_main, "data/sstraining_main_clean.rds")
 ```
+
+## Summary
+
+Data cleaning is inherently context-specific, meaning there is no universal template that fits all scenarios. To effectively clean your data, it is essential to thoroughly understand the study design, objectives, and other relevant factors. This knowledge allows for a tailored approach that addresses the unique requirements of the dataset and the goals of the analysis.
+
+To master R, I recommend **R for Data Science**[@wickhamhadley2023]. This book introduces the tidyverse and focuses on data manipulation, visualization, and analysis through practical examples and exercises. Its clear explanations and structured approach make it suitable for both beginners and those looking to enhance their skills. Whether you're starting out or aiming to deepen your expertise, this book is a reliable guide for your data science journey

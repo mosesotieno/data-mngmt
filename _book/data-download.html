@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -190,6 +209,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./batch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Batch Scripting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">References</span></a>
   </div>
@@ -252,8 +277,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="introduction" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">2.1</span> Introduction</h2>
 <p>In the ever-evolving landscape of data collection, <a href="https://mysurvey.solutions/en/">Survey Solutions</a> stands out as a powerful and versatile tool designed to streamline the process. Developed by the World Bank, this innovative platform enables researchers and organizations to gather high-quality data efficiently and effectively. With its user-friendly interface and robust features, Survey Solutions empowers field staff to conduct surveys, manage complex questionnaires, and ensure data integrity in real-time.</p>
-<p>One of the standout capabilities of Survey Solutions is its robust API, which allows for seamless integration with other systems and applications. This feature enables users to automate data collection processes, enhance data management, and facilitate real-time data access, making it easier to incorporate Survey Solutions into existing workflows.</p>
-<p>By harnessing the capabilities of Survey Solutions, users can customize surveys to meet specific research needs, collect data through mobile devices, and utilize advanced tools for monitoring and data analysis. This flexibility not only enhances the quality of data collected but also accelerates decision-making processes in various sectors, including healthcare, education, and social research.</p>
+<p>One of the standout capabilities of Survey Solutions is its robust API, which allows for seamless integration with other systems and applications. This feature enables users to automate data extraction processes, enhance data management, and facilitate real-time query generation and resolution, making it easier to incorporate Survey Solutions into existing workflows.</p>
+<p>By harnessing the capabilities of Survey Solutions, users can customize surveys to meet specific research needs, collect data through mobile devices, and utilize advanced tools for monitoring and data management. This flexibility not only enhances the quality of data collected but also accelerates decision-making processes in various sectors, including healthcare, education, and social research.</p>
 <p>Whether you’re a seasoned researcher or a novice data collector, Survey Solutions provides the resources and support necessary to transform data collection into a seamless and impactful experience. Embrace the future of data gathering with Survey Solutions—where precision meets efficiency.</p>
 </section>
 <section id="survey-solution-accounts" class="level2" data-number="2.2">
@@ -321,7 +346,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><p>View interviews and their status.</p></li>
 <li><p>Generate reports and monitor survey performance.</p></li>
-<li><p>Cannot edit or approve interviews.</p></li>
 </ul></li>
 </ul>
 <ol start="6" type="1">
@@ -347,7 +371,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>an external dashboard or monitoring and reporting system, which updates some indicators every night and publishes them to a website, or</p></li>
 <li><p>an external checking and validation system which verifies collected data against some external sources of information and rejects automatically the incorrect interviews, or</p></li>
 <li><p>an integrated system, which utilizes Survey Solutions for data collections tasks and a statistical package for continuous analysis,</p></li>
-<li><p>facility management, inventory and price monitoring systems, etc, etc.</p></li>
+<li><p>facility management, inventory and price monitoring systems.</p></li>
 </ul>
 <p>For the purposes of this tutorial, our focus will be on the first use case.</p>
 <section id="api-clients" class="level3" data-number="2.3.1">
@@ -413,7 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>For more details about each of the clients you check <a href="https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/">here</a>.</p>
+<p>For more details about each of the clients, check <a href="https://docs.mysurvey.solutions/headquarters/api/survey-solutions-api/">here</a>.</p>
 </section>
 </section>
 <section id="python-package" class="level2" data-number="2.4">
@@ -428,7 +452,7 @@ pip install ssaw</code></pre>
 <section id="modules" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="modules"><span class="header-section-number">2.4.2</span> Modules</h3>
 <p>I use the following modules in data management pipeline especially when working with Survey Solutions:</p>
-<div id="952feb7a" class="cell" data-execution_count="1">
+<div id="df758ddb" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssaw <span class="im">import</span> Client, ExportApi, QuestionnairesApi, models</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> sleep</span>
@@ -439,12 +463,6 @@ pip install ssaw</code></pre>
 <section id="connect-to-server" class="level3" data-number="2.4.3">
 <h3 data-number="2.4.3" class="anchored" data-anchor-id="connect-to-server"><span class="header-section-number">2.4.3</span> Connect to server</h3>
 <p>To communicate with Survey Solutions server, you first need to instantiate a client. You remember the API user you created or was created for you? It is necessary at this point. To connect to Survey Solution you need four pieces of information i.e.</p>
-<ul>
-<li><p>URL for the server</p></li>
-<li><p>API username</p></li>
-<li><p>API password</p></li>
-<li><p>Name of the work space</p></li>
-</ul>
 <dl>
 <dt><strong>Parameters</strong></dt>
 <dd>
@@ -452,26 +470,24 @@ pip install ssaw</code></pre>
 <li><p><strong>url</strong> (<strong><code>str</code></strong>) – URL of the headquarters app</p></li>
 <li><p><strong>api_user</strong> (<strong><code>Optional</code></strong>[<strong><code>str</code></strong>]) – API user name</p></li>
 <li><p><strong>api_password</strong> (<strong><code>Optional</code></strong>[<strong><code>str</code></strong>]) – API user password</p></li>
-<li><p><strong>token</strong> (<strong><code>Optional</code></strong>[<strong><code>str</code></strong>]) – Authorization token</p></li>
-<li><p><strong>workspace</strong> (<strong><code>str</code></strong>) – Name of the workspace. If None, “primary” will be assumed</p></li>
+<li><p><strong>workspace</strong> (<strong><code>str</code></strong>) – Name of the workspace.</p></li>
 </ul>
 </dd>
 </dl>
 <p>There are two ways to provide these parameters.</p>
-<ul>
-<li>One is to hard-code them in the script.</li>
-</ul>
+<ol type="1">
+<li>One is to <strong>hard-code</strong> them in the script.</li>
+</ol>
 <p>This method is insecure for handling sensitive data. If you push this script to a public repository, anyone can access these details. Best practices in data management require keeping sensitive information secure and out of reach of unauthorized individuals.</p>
-<ul>
-<li><p>Using config files</p>
+<ol start="2" type="1">
+<li><p>Using <strong>config</strong> files</p>
 <p>A more secure way to handle sensitive data is by using configuration files. Instead of hard-coding credentials directly in the script, you can store them in a separate config file and load them securely. There are several common formats for configuration files such as <strong>.ini</strong> files (Initialization files), <strong>.json</strong> files (JavaScript Object Notation), <strong>.yam</strong>l files (YAML Aint Markup Language), <strong>.properties</strong> files (Java-style-value pair format). I decided to use <strong>.ini</strong> because they are lightweight and easy-to-use configuration files that provide a straightforward way to store settings in a simple key-value format. They allow for comments and enable dividing the configuration into sections.</p>
-<p>To prevent sensitive data from being exposed, follow these security practices:</p></li>
-</ul>
-<!-- -->
+<p>To prevent sensitive data from being exposed, follow these security practices:</p>
 <ul>
-<li><p><strong>Add Config File to .gitignore:</strong> Ensure the config file is not included in version control (e.g., GitHub) by adding it to .gitignore.</p></li>
-<li><p><strong>Restrict File Permissions:</strong> Limit who can read the config file by changing its permissions so only authorized users can access it.</p></li>
-</ul>
+<li><strong>Add Config File to .gitignore:</strong> Ensure the config file is not included in version control (e.g., GitHub) by adding it to .gitignore.</li>
+<li><strong>Restrict File Permissions:</strong> Limit who can read the config file by changing its permissions so only authorized users can access it.</li>
+</ul></li>
+</ol>
 </section>
 <section id="export-data" class="level3" data-number="2.4.4">
 <h3 data-number="2.4.4" class="anchored" data-anchor-id="export-data"><span class="header-section-number">2.4.4</span> Export Data</h3>
@@ -510,7 +526,7 @@ pip install ssaw</code></pre>
 <section id="download-script" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="download-script"><span class="header-section-number">2.5</span> Download Script</h2>
 <p>The complete script to download data is given below:</p>
-<div id="882512f8" class="cell" data-execution_count="2">
+<div id="83547e99" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Download the trial dataset from the Survey Solutions server</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Moses Otieno</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Date Created: 14 Oct 2024</span></span>
@@ -606,7 +622,7 @@ pip install ssaw</code></pre>
 <span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>    api_user <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'api_user'</span>]</span>
 <span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>    passwd <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'api_password'</span>]</span>
 <span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>    wkspace <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'workspace'</span>]</span>
-<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    quizid <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'quiz_id'</span>]</span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>    quizid <span class="op">=</span> config[<span class="st">'susol'</span>][<span class="st">'survey_test_id'</span>]</span>
 <span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Initialize the Survey Solutions client</span></span>
 <span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>   </span>
@@ -628,7 +644,7 @@ pip install ssaw</code></pre>
 </div>
 <section id="customizing-download-script" class="level3" data-number="2.5.1">
 <h3 data-number="2.5.1" class="anchored" data-anchor-id="customizing-download-script"><span class="header-section-number">2.5.1</span> Customizing Download Script</h3>
-<p>I’ve done my best to make things easy for you. However, you need to provide specific details in the script to download your data:</p>
+<p>You need to provide specific details in the script to download your data:</p>
 <ol type="1">
 <li><p><strong>config.ini</strong>: Create a <code>config.ini</code> file with a section called <strong>susol</strong>. Include the required details: <code>api user</code>, <code>api password</code>, <code>url</code>, and <code>workspace</code>.</p></li>
 <li><p><strong>Questionnaire</strong>: Identify the IDs of the questionnaires you want to download and add them to the config file.</p></li>
@@ -666,8 +682,14 @@ pip install ssaw</code></pre>
 <li><strong>Create .ini Config File</strong>: Store all necessary information for the Survey Solutions Server.</li>
 <li><strong>Run the Script</strong>: Execute the script to download the data!</li>
 </ul>
+<p>To deepen your understanding in Python, I would recommend Automate the Boring Stuff with Python<span class="citation" data-cites="sweigartal2019"><sup><a href="references.html#ref-sweigartal2019" role="doc-biblioref">1</a></sup></span>. It is a highly praised book that serves as an excellent introduction to programming for beginners, particularly those looking to leverage Python for practical tasks.</p>
 
 
+<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="ref-sweigartal2019" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Sweigart, Al. <em>Automate the Boring Stuff with Python: Practical Programming for Total Beginners</em>. 2nd ed. No Starch Press; 2019.</div>
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->

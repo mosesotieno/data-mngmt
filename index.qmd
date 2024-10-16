@@ -2,17 +2,17 @@
 
 ## What is this tutorial about?
 
-This tutorial provides a comprehensive guide to building a data management pipeline using various programming languages and tools. It aims at equiping you with the knowledge and skills necessary to efficiently collect, manage, and analyze data, particularly in the context of survey data.
+This tutorial provides a comprehensive guide to building a data management pipeline using various programming languages and tools. It aims at equiping you with the knowledge and skills necessary to efficiently download, manage, generate reports and share data outputs, particularly in the context of survey data.
 
 You will learn how to leverage **R** for data manipulation and reporting, utilize **Python** for scripting and automation, and manage databases with **MySQL**. Additionally, the tutorial will introduce you to **Batch scripting** for task automation in Windows environments.
 
 A key focus will be on **Survey Solutions**, a robust platform for data collection, where you will gain familiarity with its API for downloading and managing survey data. By working with the `ssaw` Python package, you will learn how to integrate these tools to create a seamless data management pipeline.
 
-Overall, this tutorial is designed for individuals who have a basic understanding of the prerequisites and are looking to enhance their skills in data management and analysis through practical, hands-on experience.
+Overall, this tutorial is designed for individuals who have a basic understanding of programming and are looking to enhance their skills in data management and analysis through practical, hands-on experience.
 
 ## Prerequisites
 
-Before starting this tutorial, ensure you have a basic understanding of the following:
+Before starting this tutorial, check whether you have a basic understanding of the following:
 
 **Survey Solutions**
 
@@ -24,9 +24,7 @@ Before starting this tutorial, ensure you have a basic understanding of the foll
 
 -   Experience with scripting and automation.
 
--   Knowledge of using libraries like `pandas` for data manipulation.
-
--   Ability to integrate Python scripts with APIs.
+-   Knowledge of using libraries in python.
 
 **R**
 
@@ -34,7 +32,7 @@ Before starting this tutorial, ensure you have a basic understanding of the foll
 
 -   Comfortable working with data frames and R scripts.
 
--   Ability to use packages for data analysis.
+-   Ability to use packages for data wrangling.
 
 **MySQL**
 
@@ -51,5 +49,5 @@ Before starting this tutorial, ensure you have a basic understanding of the foll
 -   Ability to write and run batch files for task automation.
 
 ::: callout-note
-While proficiency is not required in any of these areas, a good level of familiarity will be beneficial for following the tutorial.
+While proficiency is not required in any of these areas, a good level of familiarity will be beneficial for following the tutorial. Links to deepen understanding of the tools will be provided.
 :::
