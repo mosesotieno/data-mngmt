@@ -1,0 +1,108 @@
+# Batch Scripting
+
+## Introduction
+
+A Batch Script is text file containing lines with commands that get executed in sequence by the Microsoft command interpreter (cmd.exe). Batch scripts files have the special extension BAT (`.bat`) or CMD (`.cmd`). This type of file is recognized by the Operating System and executed through an interface (called shell) provided by a system file called the command interpreter. Batch scripting is a powerful way to automate data management workflows by allowing you to write simple scripts that can execute multiple commands. It is especially useful for handling repetitive tasks such as file organization, renaming, backups, and even scheduling automated data processing. With batch scripting, you can improve efficiency, reduce manual work, and ensure consistency in your data management processes. I created a batch script to automate the entire data management workflow.
+
+## Why Batch Scripts
+
+There are tons of reasons why I prefer batch script. A few of them are list below:
+
+-   **Automation:** Batch scripts automate repetitive tasks, saving time and reducing manual effort.
+
+-   **Efficiency:** They streamline processes, allowing multiple commands to run sequentially with minimal intervention.
+
+-   **Consistency:** Ensure uniform execution of tasks, reducing the chances of errors.
+
+-   **Flexibility:** Batch scripts can be customized to handle various tasks such as backups, file management, and data processing.
+
+-   **Integration:** Easily integrate with other tools or scripts to enhance data workflows.
+
+-   **Cost-Effective:** No need for additional software; batch scripting works on most operating systems.
+
+-   **Simplicity:** Batch scripts are easy to write and execute, requiring minimal setup.
+
+## Batch Script for Automation
+
+Below is a simple example of how you can write your batch script:
+
+```{python}
+with open('scripts/training-batch.bat') as f:
+  batch = f.read()
+  
+print(batch)
+```
+
+## Automating Batch Script
+
+Throughout this journey, we've emphasized the importance of automation in streamlining our workflows. Now that we've developed a robust batch script, the next step is to automate its execution.
+
+-   **For Windows Users**: Utilize the Task Scheduler to run your batch script at specified intervals or triggers. This tool allows you to schedule tasks to run automatically, ensuring your processes are carried out without manual intervention.
+
+-   **For Linux Users**: Leverage `cron`, a time-based job scheduler, to automate your batch script execution. You can set up cron jobs to run your scripts at designated times or intervals, enhancing efficiency and reliability.
+
+-   **For Mac Users**: Use `launchd`, the built-in service management framework, to automate your batch script. You can create a `.plist` file to define when and how your script should run, allowing for seamless execution of tasks at specified times or events.
+
+By implementing these scheduling tools, you can maintain a seamless workflow, allowing you to focus on other important tasks while your scripts run automatically. I will do a qucik run on how to schedule tasks on Windows.
+
+### Scheduling Tasks on Windows
+
+-   **Open Task Scheduler**:
+
+    -   Press `Windows + R` to open the Run dialog.
+
+    -   Type `taskschd.msc` and hit `Enter`.
+
+    -   You may be requested to key in your user password. Do so.
+
+-   **Create a New Task**:
+
+    -   In the Task Scheduler window, click on **"Create Basic Task"** in the right-hand pane.
+
+        ![Click Create Basic Task](images/task-schedule-basic-01.JPG){width="628"}
+
+-   **Name Your Task**:
+
+    -   Enter a name and description for your task, then click **"Next."**
+
+        ![Name and description of task](images/name_desc_task.JPG)
+
+-   **Choose a Trigger**:
+
+    -   Select when you want the task to start (e.g., Daily, Weekly, One time, etc.) and click **"Next."**
+
+    -   Configure the trigger details (e.g., time, frequency) and click **"Next."**
+
+-   **Choose an Action**:
+
+    -   Select **"Start a program"** and click **"Next."**
+
+-   **Select Your Batch Script**:
+
+    -   Click **"Browse"** to locate your batch script file.
+
+    -   Optionally, you can add arguments or specify the "Start in" directory.
+
+    -   Click **"Next."**
+
+-   **Review and Finish**:
+
+    -   Review your task settings. If everything looks good, click **"Finish."**
+
+        ![Summary of task scheduled](images/taskscheduler-summary.JPG)
+
+-   **Manage Your Task**:
+
+    -   To edit or manage your scheduled task, locate it in the Task Scheduler Library. Right-click on the task for options like **Run, End, or Delete**.
+
+![The task is running!](images/task_running.JPG)
+
+Voila! We have done it!!!!
+
+## Summary
+
+In this section, we explored the significance of batch scripting in creating an efficient data management workflow. Batch scripts automate repetitive tasks, allowing users to execute multiple commands without manual intervention, thus enhancing productivity and minimizing errors. We discussed various reasons for preferring batch scripts, including their simplicity, efficiency, and ability to manage complex workflows seamlessly.
+
+We also highlighted the importance of task schedulers for automating batch scripts, with specific instructions for Windows users to schedule tasks effectively. For Linux users, we mentioned using cron jobs, and for Mac users, we suggested utilizing Automator or the launchd system for similar task automation.
+
+By integrating batch scripts and task schedulers into our data management workflow, we streamline processes, improve consistency, and ultimately crown the workflow with a robust and automated solution. For more details about batch scripting check [here](https://tutorialreference.com/batch-scripting/batch-script-tutorial).
