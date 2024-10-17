@@ -5,8 +5,15 @@ book:
   title: "Data Management"
   author: "Moses Otieno"
   date: "08/10/2024"
+  page-footer:
+    left: |
+      Data management was written by Moses Otieno
+    right: |
+      This book was built with <a href="https://quarto.org/">Quarto</a>.
   site-url: https://susoltut.netlify.app/
   repo-url: https://github.com/mosesotieno/data-mngmt/
+  cover-image: cover.jpg
+  favicon: cover.jpg
   chapters:
     - index.qmd
     - intro.qmd
