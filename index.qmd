@@ -51,3 +51,5 @@ Before starting this tutorial, check whether you have a basic understanding of t
 ::: callout-note
 While proficiency is not required in any of these areas, a good level of familiarity will be beneficial for following the tutorial. Links to deepen understanding of the tools will be provided.
 :::
+
+Access the book's code on GitHub [here](https://github.com/mosesotieno/data-mngmt).
