@@ -58,6 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -452,7 +453,7 @@ pip install ssaw</code></pre>
 <section id="modules" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="modules"><span class="header-section-number">2.4.2</span> Modules</h3>
 <p>I use the following modules in data management pipeline especially when working with Survey Solutions:</p>
-<div id="df758ddb" class="cell" data-execution_count="1">
+<div id="7f144055" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssaw <span class="im">import</span> Client, ExportApi, QuestionnairesApi, models</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> sleep</span>
@@ -526,7 +527,7 @@ pip install ssaw</code></pre>
 <section id="download-script" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="download-script"><span class="header-section-number">2.5</span> Download Script</h2>
 <p>The complete script to download data is given below:</p>
-<div id="83547e99" class="cell" data-execution_count="2">
+<div id="c13e2864" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Download the trial dataset from the Survey Solutions server</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Moses Otieno</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Date Created: 14 Oct 2024</span></span>
@@ -682,12 +683,15 @@ pip install ssaw</code></pre>
 <li><strong>Create .ini Config File</strong>: Store all necessary information for the Survey Solutions Server.</li>
 <li><strong>Run the Script</strong>: Execute the script to download the data!</li>
 </ul>
-<p>To deepen your understanding in Python, I would recommend Automate the Boring Stuff with Python<span class="citation" data-cites="sweigartal2019"><sup><a href="references.html#ref-sweigartal2019" role="doc-biblioref">1</a></sup></span>. It is a highly praised book that serves as an excellent introduction to programming for beginners, particularly those looking to leverage Python for practical tasks.</p>
+<p>To deepen your understanding in Python, I would recommend Automate the Boring Stuff with Python<span class="citation" data-cites="sweigartal2019">(<a href="references.html#ref-sweigartal2019" role="doc-biblioref">Sweigart, Al 2019</a>)</span>. It is a highly praised book that serves as an excellent introduction to programming for beginners, particularly those looking to leverage Python for practical tasks. For data management and analysis in Python, <em>Python for Data Analysis</em> by Wes McKinney <span class="citation" data-cites="mckinneywes2018">(<a href="references.html#ref-mckinneywes2018" role="doc-biblioref">McKinney, Wes 2018</a>)</span> is excellent.</p>
 
 
-<div id="refs" class="references csl-bib-body" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-mckinneywes2018" class="csl-entry" role="listitem">
+McKinney, Wes. 2018. <em>Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython</em>. 2nd ed. O’Reilly Media, Inc. <a href="https://wesmckinney.com/book/">https://wesmckinney.com/book/</a>.
+</div>
 <div id="ref-sweigartal2019" class="csl-entry" role="listitem">
-<div class="csl-left-margin">1. </div><div class="csl-right-inline">Sweigart, Al. <em>Automate the Boring Stuff with Python: Practical Programming for Total Beginners</em>. 2nd ed. No Starch Press; 2019.</div>
+Sweigart, Al. 2019. <em>Automate the Boring Stuff with Python: Practical Programming for Total Beginners</em>. 2nd ed. No Starch Press.
 </div>
 </div>
 </section>

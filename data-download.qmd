@@ -380,4 +380,4 @@ Below is a summary of the steps you need to undertake in order to download data 
 -   **Create .ini Config File**: Store all necessary information for the Survey Solutions Server.
 -   **Run the Script**: Execute the script to download the data!
 
-To deepen your understanding in Python, I would recommend Automate the Boring Stuff with Python[@sweigartal2019]. It is a highly praised book that serves as an excellent introduction to programming for beginners, particularly those looking to leverage Python for practical tasks.
+To deepen your understanding in Python, I would recommend Automate the Boring Stuff with Python[@sweigartal2019]. It is a highly praised book that serves as an excellent introduction to programming for beginners, particularly those looking to leverage Python for practical tasks. For data management and analysis in Python, *Python for Data Analysis* by Wes McKinney [@mckinneywes2018] is excellent.

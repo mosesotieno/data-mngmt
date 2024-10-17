@@ -18,7 +18,7 @@ book:
     - references.qmd
 
 bibliography: references.bib
-csl: american-medical-association.csl
+
 
 format:
   html:
