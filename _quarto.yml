@@ -5,6 +5,8 @@ book:
   title: "Data Management"
   author: "Moses Otieno"
   date: "08/10/2024"
+  site-url: https://susoltut.netlify.app/
+  repo-url: https://github.com/mosesotieno/data-mngmt/
   chapters:
     - index.qmd
     - intro.qmd
@@ -16,6 +18,7 @@ book:
     - send-report.qmd
     - batch.qmd
     - references.qmd
+
 
 bibliography: references.bib
 

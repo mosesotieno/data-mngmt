@@ -151,6 +151,9 @@ div.csl-indent {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Management</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/mosesotieno/data-mngmt/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -453,7 +456,7 @@ pip install ssaw</code></pre>
 <section id="modules" class="level3" data-number="2.4.2">
 <h3 data-number="2.4.2" class="anchored" data-anchor-id="modules"><span class="header-section-number">2.4.2</span> Modules</h3>
 <p>I use the following modules in data management pipeline especially when working with Survey Solutions:</p>
-<div id="c92f5351" class="cell" data-execution_count="1">
+<div id="0c91cc9b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ssaw <span class="im">import</span> Client, ExportApi, QuestionnairesApi, models</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> time <span class="im">import</span> sleep</span>
@@ -527,7 +530,7 @@ pip install ssaw</code></pre>
 <section id="download-script" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="download-script"><span class="header-section-number">2.5</span> Download Script</h2>
 <p>The complete script to download data is given below:</p>
-<div id="5dff7f6e" class="cell" data-execution_count="2">
+<div id="0d221bb6" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Purpose: Download the trial dataset from the Survey Solutions server</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Author: Moses Otieno</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Date Created: 14 Oct 2024</span></span>
@@ -789,7 +792,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/susoltut\.netlify\.app\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

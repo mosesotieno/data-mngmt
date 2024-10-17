@@ -131,6 +131,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Data Management</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/mosesotieno/data-mngmt/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+</div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -294,7 +297,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sending-updates" class="level2" data-number="7.3">
 <h2 data-number="7.3" class="anchored" data-anchor-id="sending-updates"><span class="header-section-number">7.3</span> Sending Updates</h2>
 <p>Below is a Python script for sending reports via Gmail using an app password. This automates the process of sharing reports with stakeholders:</p>
-<div id="3a48f798" class="cell" data-execution_count="1">
+<div id="99babb4d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.application <span class="im">import</span> MIMEApplication</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.multipart <span class="im">import</span> MIMEMultipart</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> email.mime.text <span class="im">import</span> MIMEText</span>
@@ -302,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> smtplib</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> os.path <span class="im">import</span> basename</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="96fe90dd" class="cell" data-execution_count="2">
+<div id="ee98cf4d" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> configparser.ConfigParser()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>config.read(<span class="st">'config.ini'</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -312,7 +315,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>to_emails <span class="op">=</span> [config[<span class="st">'email'</span>][<span class="st">'recipient1'</span>], config[<span class="st">'email'</span>][<span class="st">'recipient2'</span>],</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>config[<span class="st">'email'</span>][<span class="st">'recipient3'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="51a66f8d" class="cell" data-execution_count="3">
+<div id="f5ac032e" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> send_mail(send_from: <span class="bu">str</span>, subject: <span class="bu">str</span>, text: <span class="bu">str</span>,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              send_to: <span class="bu">list</span>, filess<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    send_to <span class="op">=</span> sender <span class="cf">if</span> <span class="kw">not</span> send_to <span class="cf">else</span> send_to</span>
@@ -342,7 +345,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>      server.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>You can write the body of the email in the script as below:</p>
-<div id="ded2e082" class="cell" data-execution_count="4">
+<div id="d02403ca" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>files_tosend <span class="op">=</span> [<span class="st">"./data-import.qmd"</span>]   </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>send_mail(</span>
@@ -353,7 +356,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  send_to <span class="op">=</span> to_emails)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Another option is to store the email body in a text file, allowing you to easily update the content without modifying the script. This approach keeps your workflow organized and ensures that any changes to the message can be made quickly and cleanly, maintaining a clear separation between code and content. It’s a more efficient and scalable way to handle message updates, especially when dealing with frequent changes or multiple stakeholders.</p>
-<div id="be44660d" class="cell" data-execution_count="5">
+<div id="241e3e3a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'message-body.txt'</span>) <span class="im">as</span> f:</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  email_body <span class="op">=</span> f.read()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -372,7 +375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol type="1">
 <li>Get your database connection details</li>
 </ol>
-<div id="fc2f03d1" class="cell" data-execution_count="6">
+<div id="cf8042fd" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> MySQLConnection</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mysql.connector</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> Error</span>
@@ -391,7 +394,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ol start="2" type="1">
 <li>Create a database</li>
 </ol>
-<div id="6c44fc70" class="cell" data-execution_count="7">
+<div id="58b2be0f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> MySQLConnection</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mysql.connector</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> Error</span>
@@ -438,7 +441,7 @@ MySQL connection is closed.</code></pre>
 <ol start="3" type="1">
 <li>Create a table</li>
 </ol>
-<div id="f7e38c92" class="cell" data-execution_count="8">
+<div id="c67c6ac9" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> MySQLConnection</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mysql.connector</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> Error</span>
@@ -494,7 +497,7 @@ MySQL connection is closed.</code></pre>
 <ol start="4" type="1">
 <li>Insert data into the table</li>
 </ol>
-<div id="404ec5d0" class="cell" data-execution_count="9">
+<div id="02e33b7d" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> MySQLConnection</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mysql.connector</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> Error</span>
@@ -548,7 +551,7 @@ Data inserted successfully</code></pre>
 </div>
 </div>
 <p>To avoid sending reports multiple times in a day, you can leverage the MySQL databases. First, fetch the data from the MySQL server and check if the report has been updated. If it hasn’t been sent that day, proceed to send it. We will update our <code>send_mail</code> function to ensure we track our progress reports.</p>
-<div id="69165637" class="cell" data-execution_count="10">
+<div id="66949743" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> MySQLConnection</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> mysql.connector</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mysql.connector <span class="im">import</span> Error</span>
@@ -592,7 +595,7 @@ Data inserted successfully</code></pre>
 <span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>            connection.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Update the <code>send_mail</code> function</p>
-<div id="b23a5197" class="cell" data-execution_count="11">
+<div id="fe33dbc5" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> send_mail(send_from: <span class="bu">str</span>, subject: <span class="bu">str</span>, text: <span class="bu">str</span>,</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>              send_to: <span class="bu">list</span>, filess<span class="op">=</span><span class="va">None</span>):</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    send_to <span class="op">=</span> sender <span class="cf">if</span> <span class="kw">not</span> send_to <span class="cf">else</span> send_to</span>
@@ -623,7 +626,7 @@ Data inserted successfully</code></pre>
 <span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>      server.quit()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Send updates if not sent</p>
-<div id="92a833df" class="cell" data-execution_count="12">
+<div id="10526cb2" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'message-body.txt'</span>) <span class="im">as</span> f:</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  email_body <span class="op">=</span> f.read()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -747,7 +750,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/susoltut\.netlify\.app\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
